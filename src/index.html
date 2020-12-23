@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="change-user">Change User</button>
+    <header>
+        <h1 class="header">Todo App</h1>
+    </header>
+    <form>
+        <input type="text" class="new-todo" placeholder= 'Please enter todo here'>
+        <button class="add" >Add</button>
+        <select name="condition" class="filter">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="outstanding">Outstanding</option>
+          </select>
+    </form>
+
+    <h2 class="list-header">To Do List for</h2>
+    <div class = "container">        
+        <ul class="list"></ul>
+    </div>
+    <script src = 'app.js'></script>
+</body>
+</html>
+

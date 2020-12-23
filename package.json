@@ -1,0 +1,18 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:attilaeross/todo-app.git",
+  "author": "Attila Eross <attila.eross@yahoo.co.uk>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "2.2.1"
+  },
+  "scripts": {
+    "lint": "eslint src"
+  }
+}
