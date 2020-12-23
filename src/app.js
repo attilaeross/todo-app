@@ -38,14 +38,19 @@ const addToList = (todo) => {
   // which takes necessary parameters and returns a DOM element which then you can use
   // to add to the DOM
 
-  // Add Todo text element
+  // creating elements needed
   const textElement = document.createElement("p");
+  const completedButton = document.createElement("button");
+  const editButton = document.createElement("button");
+  const saveButton = document.createElement("button");
+  const deleteButton = document.createElement("button");
+
+  // add text element
   textElement.classList.add("todo-text");
   textElement.innerHTML = todo.text;
   newTodo.appendChild(textElement);
 
-  // check mark button
-  const completedButton = document.createElement("button");
+  // add check mark button
   completedButton.innerHTML = "Mark";
   completedButton.classList.add("complete-button");
   completedButton.addEventListener("click", () => {
@@ -60,13 +65,11 @@ const addToList = (todo) => {
   }
   newTodo.appendChild(completedButton);
 
-  // edit button
-  const editButton = document.createElement("button");
+  // add edit button
   editButton.innerHTML = "Edit";
   editButton.classList.add("edit-button");
 
-  // save button
-  const saveButton = document.createElement("button");
+  // add save button
   saveButton.innerHTML = "Save";
   saveButton.classList.add("save-button");
   saveButton.style.display = "none";
@@ -78,8 +81,7 @@ const addToList = (todo) => {
   }
   newTodo.appendChild(editButton);
 
-  // delete button
-  const deleteButton = document.createElement("button");
+  // add delete button
   deleteButton.innerHTML = "Delete";
   deleteButton.classList.add("delete-button");
   newTodo.appendChild(deleteButton);
@@ -190,7 +192,7 @@ todoList.addEventListener("click", (event) => {
   // its parent will be 100% a todo DOM element?
   // what happens if we change the DOM structure
   const item = event.target;
-  //item = document.querySelector(`#${event.target.parentElement.id}`)
+  // item = document.querySelector(`#${event.target.parentElement.id}`)
 
   // getting the elements out what i need to manipulate in this function
   const todoElement = item.parentElement;
@@ -247,7 +249,7 @@ todoList.addEventListener("click", (event) => {
 
   // SAVE
   if (item.classList[0] === "save-button") {
-    //setting attributes
+    // setting attributes
     textElement.contentEditable = false;
     editButton.style.display = "unset";
     saveButton.style.display = "none";
