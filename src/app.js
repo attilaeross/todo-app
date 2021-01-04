@@ -24,6 +24,18 @@ const getStoredTodos = () => {
   return JSON.parse(localStorage.getItem(storageKey()));
 };
 
+const updateStoredTodos = (todos) => {
+  localStorage.setItem(storageKey(), JSON.stringify(todos));
+};
+
+const changeTodoMarkLocalStorage = (todoElement) => {
+  const todos = getStoredTodos();
+  const todoText = todoElement.childNodes[0].innerText;
+  const todoItem = todos.find(({ text }) => text === todoText);
+  todoItem.isComplete = !todoItem.isComplete;
+  updateStoredTodos(todos);
+};
+
 const addToList = (todo) => {
   // TODO consider splitting this into two steps:
   // - create new todo DOM structure
@@ -58,6 +70,7 @@ const addToList = (todo) => {
     newTodo.isComplete = newTodo.classList.contains("complete");
     editButton.disabled = newTodo.classList.contains("complete");
     changeTodoMarkLocalStorage(newTodo);
+    editButton.disabled = todo.isComplete;
   });
 
   if (todo.isComplete === true) {
@@ -75,10 +88,6 @@ const addToList = (todo) => {
   saveButton.style.display = "none";
   newTodo.appendChild(saveButton);
 
-  // TODO this can be turned into a simple assignment removing the conditional
-  if (todo.isComplete === true) {
-    editButton.disabled = true;
-  }
   newTodo.appendChild(editButton);
 
   // add delete button
@@ -91,12 +100,8 @@ const addToList = (todo) => {
 };
 
 const loadSavedList = () => {
-  // TODO: why do we need a `while` loop when we go through all the child nodes
-  // of the `ul` with `forEach` and invoke `remove` on all of them?
-  while (todoList.childElementCount > 0) {
-    todoList.childNodes.forEach((node) => {
-      node.remove();
-    });
+  while (todoList.firstChild) {
+    todoList.removeChild(todoList.firstChild);
   }
 
   const todos = getStoredTodos(userKey);
@@ -122,15 +127,10 @@ const setUser = () => {
   }
 };
 
-const updateStoredTodos = (todos) => {
-  localStorage.setItem(storageKey(), JSON.stringify(todos));
-};
-
-// TODO the parameter `todo` is actually a DOM element, rename it to reflect that
-const removeStoredTodo = (todo) => {
+const removeStoredTodo = (todoElement) => {
   const todos = getStoredTodos();
 
-  const todoText = todo.childNodes[0].innerText;
+  const todoText = todoElement.childNodes[0].innerText;
   // TODO extra mile: try removing the todo item using `.filter()`
   // this is to use a "functional programming" approach as opposed to mutation of the existing array
   todos.splice(todos.indexOf(todoText), 1);
@@ -138,33 +138,11 @@ const removeStoredTodo = (todo) => {
   updateStoredTodos(todos);
 };
 
-const changeTodoMarkLocalStorage = (todo) => {
-  const todos = getStoredTodos();
-  const todoText = todo.childNodes[0].innerText;
-  // TODO we only intend to change the isComplete flag on a single todo item
-  // how else could this be done?
-  // is there another Array.prototype method we could use instead of .filter and .forEach?
-  todos
-    .filter(({ text }) => text === todoText)
-    .forEach((t) => {
-      // eslint-disable-next-line no-param-reassign
-      t.isComplete = !t.isComplete;
-    });
-
-  updateStoredTodos(todos);
-};
-
 // TODO does this function need to run every time the todoList DOM element receives a click?
 const updateTodoTextLocalStorage = (oldText, newText) => {
   const todos = getStoredTodos();
-  // TODO use different Array.prototype method instead of .filter and .foreach
-  todos
-    .filter((todo) => todo.text === oldTodoText)
-    .forEach((todo) => {
-      // eslint-disable-next-line no-param-reassign
-      todo.text = newText;
-    });
-
+  const todoItem = todos.find(({ text }) => text === oldTodoText);
+  todoItem.text = newText;
   updateStoredTodos(todos);
 };
 
@@ -240,7 +218,7 @@ todoList.addEventListener("click", (event) => {
 
     // TODO extract to function
     buttons.forEach((button) => {
-      if (button.classList == "save-button") {
+      if (button.classList === "save-button") {
         // eslint-disable-next-line no-param-reassign
         button.disabled = true;
       }
