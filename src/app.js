@@ -33,14 +33,6 @@ const changeTodoMarkLocalStorage = (todoElement) => {
   updateStoredTodos(todos);
 };
 
-// TODO does this function need to run every time the todoList DOM element receives a click?
-const updateTodoTextLocalStorage = (id, newText) => {
-  const todos = getStoredTodos();
-  const todoItem = todos.find((todo) => todo.id === id);
-  todoItem.text = newText;
-  updateStoredTodos(todos);
-};
-
 const removeStoredTodo = (todoElement) => {
   const todos = getStoredTodos();
 
@@ -50,6 +42,13 @@ const removeStoredTodo = (todoElement) => {
   todos.splice(todos.indexOf(todoText), 1);
 
   updateStoredTodos(todos);
+};
+
+const updateTodoItems = (newTodo) => {
+  const { id } = newTodo;
+  const todoItem = todoItems.find((todo) => todo.id === id);
+  todoItem.text = newTodo.childNodes[0].innerHTML;
+  todoItem.isComplete = newTodo.classList.contains("complete");
 };
 
 const addToList = (todo) => {
@@ -114,11 +113,8 @@ const addToList = (todo) => {
     textElement.contentEditable = false;
     editButton.style.display = "unset";
     saveButton.style.display = "none";
-
-    const { id } = newTodo;
-    const newTodoText = newTodo.childNodes[0].innerHTML;
-
-    updateTodoTextLocalStorage(id, newTodoText);
+    updateTodoItems(newTodo);
+    updateStoredTodos(todoItems);
   });
 
   newTodo.appendChild(saveButton);
