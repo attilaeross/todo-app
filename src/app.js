@@ -81,6 +81,25 @@ const addToList = (todo) => {
   // add edit button
   editButton.innerHTML = "Edit";
   editButton.classList.add("edit-button");
+  editButton.addEventListener("click", () => {
+    oldTodoText = textElement.innerText;
+
+    textElement.contentEditable = true;
+    textElement.focus();
+    editButton.style.display = "none";
+    saveButton.style.display = "unset";
+
+    // disable all buttons (except Save) until user saves the todo text
+    const buttons = document.getElementsByTagName("button");
+
+    // TODO extract to function
+    buttons.forEach((button) => {
+      if (button.classList === "save-button") {
+        // eslint-disable-next-line no-param-reassign
+        button.disabled = true;
+      }
+    });
+  });
 
   // add save button
   saveButton.innerHTML = "Save";
@@ -187,27 +206,6 @@ todoList.addEventListener("click", (event) => {
   // TODO it'd be better to have a CSS query collecting only the buttons
   // which are inside the todoList element, rather than all the buttons
   // in the whole of the document
-
-  // EDIT
-  if (item.classList[0] === "edit-button") {
-    oldTodoText = textElement.innerText;
-
-    textElement.contentEditable = true;
-    textElement.focus();
-    editButton.style.display = "none";
-    saveButton.style.display = "unset";
-
-    // disable all buttons (except Save) until user saves the todo text
-    const buttons = document.getElementsByTagName("button");
-
-    // TODO extract to function
-    buttons.forEach((button) => {
-      if (button.classList === "save-button") {
-        // eslint-disable-next-line no-param-reassign
-        button.disabled = true;
-      }
-    });
-  }
 
   // SAVE
   if (item.classList[0] === "save-button") {
