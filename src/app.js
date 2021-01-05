@@ -25,23 +25,9 @@ const updateStoredTodos = (todos) => {
   localStorage.setItem(storageKey(), JSON.stringify(todos));
 };
 
-const changeTodoMarkLocalStorage = (todoElement) => {
-  const todos = getStoredTodos();
-  const todoText = todoElement.childNodes[0].innerText;
-  const todoItem = todos.find(({ text }) => text === todoText);
-  todoItem.isComplete = !todoItem.isComplete;
-  updateStoredTodos(todos);
-};
-
-const removeStoredTodo = (todoElement) => {
-  const todos = getStoredTodos();
-
-  const todoText = todoElement.childNodes[0].innerText;
-  // TODO extra mile: try removing the todo item using `.filter()`
-  // this is to use a "functional programming" approach as opposed to mutation of the existing array
-  todos.splice(todos.indexOf(todoText), 1);
-
-  updateStoredTodos(todos);
+const removeTodoItem = (newTodo) => {
+  const { id } = newTodo;
+  todoItems = todoItems.filter((todo) => todo.id !== id);
 };
 
 const updateTodoItems = (newTodo) => {
@@ -84,7 +70,9 @@ const addToList = (todo) => {
     newTodo.classList.toggle("complete");
     newTodo.isComplete = newTodo.classList.contains("complete");
     editButton.disabled = newTodo.classList.contains("complete");
-    changeTodoMarkLocalStorage(newTodo);
+
+    updateTodoItems(newTodo);
+    updateStoredTodos(todoItems);
   });
 
   if (todo.isComplete === true) {
@@ -125,7 +113,8 @@ const addToList = (todo) => {
   deleteButton.innerHTML = "Delete";
   deleteButton.classList.add("delete-button");
   deleteButton.addEventListener("click", () => {
-    removeStoredTodo(newTodo);
+    removeTodoItem(newTodo);
+    updateStoredTodos(todoItems);
     newTodo.remove();
   });
   newTodo.appendChild(deleteButton);
