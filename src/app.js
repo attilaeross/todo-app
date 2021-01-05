@@ -10,9 +10,6 @@ const listHeader = document.querySelector("h2.list-header");
 let userKey;
 let todoItems = [];
 
-// TODO we identify a todo item by its text prop, what happens if multiple todo items have the same text?
-let oldTodoText;
-
 // Functions
 
 const storageKey = () => `${userKey}Todos`;
@@ -37,9 +34,9 @@ const changeTodoMarkLocalStorage = (todoElement) => {
 };
 
 // TODO does this function need to run every time the todoList DOM element receives a click?
-const updateTodoTextLocalStorage = (oldText, newText) => {
+const updateTodoTextLocalStorage = (id, newText) => {
   const todos = getStoredTodos();
-  const todoItem = todos.find(({ text }) => text === oldTodoText);
+  const todoItem = todos.find((todo) => todo.id === id);
   todoItem.text = newText;
   updateStoredTodos(todos);
 };
@@ -89,7 +86,6 @@ const addToList = (todo) => {
     newTodo.isComplete = newTodo.classList.contains("complete");
     editButton.disabled = newTodo.classList.contains("complete");
     changeTodoMarkLocalStorage(newTodo);
-    editButton.disabled = todo.isComplete;
   });
 
   if (todo.isComplete === true) {
@@ -101,23 +97,12 @@ const addToList = (todo) => {
   editButton.innerHTML = "Edit";
   editButton.classList.add("edit-button");
   editButton.addEventListener("click", () => {
-    oldTodoText = textElement.innerText;
+    // oldTodoText = textElement.innerText;
 
     textElement.contentEditable = true;
     textElement.focus();
     editButton.style.display = "none";
     saveButton.style.display = "unset";
-
-    // disable all buttons (except Save) until user saves the todo text
-    const buttons = document.getElementsByTagName("button");
-
-    // TODO extract to function
-    buttons.forEach((button) => {
-      if (button.classList === "save-button") {
-        // eslint-disable-next-line no-param-reassign
-        button.disabled = true;
-      }
-    });
   });
 
   // add save button
@@ -130,16 +115,10 @@ const addToList = (todo) => {
     editButton.style.display = "unset";
     saveButton.style.display = "none";
 
-    const newTodoText = newTodo.innerText;
+    const { id } = newTodo;
+    const newTodoText = newTodo.childNodes[0].innerHTML;
 
-    // enable all buttons after user saved the todo text
-    const buttons = document.getElementsByTagName("button");
-
-    buttons.forEach((button) => {
-      // eslint-disable-next-line no-param-reassign
-      button.disabled = false;
-    });
-    updateTodoTextLocalStorage(oldTodoText, newTodoText);
+    updateTodoTextLocalStorage(id, newTodoText);
   });
 
   newTodo.appendChild(saveButton);
