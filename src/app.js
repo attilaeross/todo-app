@@ -181,22 +181,6 @@ todoList.addEventListener("click", (event) => {
   // TODO all buttons should have their own click handlers, rather than one click handler
   // on the main todoList DOM element
 
-  // set/mark Todo DONE / UNDONE
-  // if (item.classList[0] === "complete-button") {
-  //   todoElement.classList.toggle("complete");
-
-  //   // TODO remove duplication, simplify steps
-  //   if (todoElement.classList.contains("complete")) {
-  //     todoElement.isComplete = true;
-  //     editButton.disabled = true;
-  //     changeTodoMarkLocalStorage(todoElement);
-  //   } else {
-  //     todoElement.isComplete = false;
-  //     editButton.disabled = false;
-  //     changeTodoMarkLocalStorage(todoElement);
-  //   }
-  // }
-
   // TODO which would be better? having a single button where we change its text Edit <-> Save
   // or two buttons which have their dedicated DOM element and their own functionality?
 
