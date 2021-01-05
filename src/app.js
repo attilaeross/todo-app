@@ -36,6 +36,14 @@ const changeTodoMarkLocalStorage = (todoElement) => {
   updateStoredTodos(todos);
 };
 
+// TODO does this function need to run every time the todoList DOM element receives a click?
+const updateTodoTextLocalStorage = (oldText, newText) => {
+  const todos = getStoredTodos();
+  const todoItem = todos.find(({ text }) => text === oldTodoText);
+  todoItem.text = newText;
+  updateStoredTodos(todos);
+};
+
 const addToList = (todo) => {
   // TODO consider splitting this into two steps:
   // - create new todo DOM structure
@@ -105,6 +113,24 @@ const addToList = (todo) => {
   saveButton.innerHTML = "Save";
   saveButton.classList.add("save-button");
   saveButton.style.display = "none";
+  saveButton.addEventListener("click", () => {
+    // setting attributes
+    textElement.contentEditable = false;
+    editButton.style.display = "unset";
+    saveButton.style.display = "none";
+
+    const newTodoText = newTodo.innerText;
+
+    // enable all buttons after user saved the todo text
+    const buttons = document.getElementsByTagName("button");
+
+    buttons.forEach((button) => {
+      // eslint-disable-next-line no-param-reassign
+      button.disabled = false;
+    });
+    updateTodoTextLocalStorage(oldTodoText, newTodoText);
+  });
+
   newTodo.appendChild(saveButton);
 
   newTodo.appendChild(editButton);
@@ -157,14 +183,6 @@ const removeStoredTodo = (todoElement) => {
   updateStoredTodos(todos);
 };
 
-// TODO does this function need to run every time the todoList DOM element receives a click?
-const updateTodoTextLocalStorage = (oldText, newText) => {
-  const todos = getStoredTodos();
-  const todoItem = todos.find(({ text }) => text === oldTodoText);
-  todoItem.text = newText;
-  updateStoredTodos(todos);
-};
-
 addButton.addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -193,9 +211,6 @@ todoList.addEventListener("click", (event) => {
 
   // getting the elements out what i need to manipulate in this function
   const todoElement = item.parentElement;
-  const textElement = todoElement.childNodes[0];
-  const saveButton = todoElement.childNodes[2];
-  const editButton = todoElement.childNodes[3];
 
   // TODO all buttons should have their own click handlers, rather than one click handler
   // on the main todoList DOM element
@@ -206,25 +221,6 @@ todoList.addEventListener("click", (event) => {
   // TODO it'd be better to have a CSS query collecting only the buttons
   // which are inside the todoList element, rather than all the buttons
   // in the whole of the document
-
-  // SAVE
-  if (item.classList[0] === "save-button") {
-    // setting attributes
-    textElement.contentEditable = false;
-    editButton.style.display = "unset";
-    saveButton.style.display = "none";
-
-    const newTodoText = todoElement.innerText;
-
-    // enable all buttons after user saved the todo text
-    const buttons = document.getElementsByTagName("button");
-
-    buttons.forEach((button) => {
-      // eslint-disable-next-line no-param-reassign
-      button.disabled = false;
-    });
-    updateTodoTextLocalStorage(oldTodoText, newTodoText);
-  }
 
   // Delete Todo
   if (item.classList[0] === "delete-button") {
