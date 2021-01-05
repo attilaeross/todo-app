@@ -44,6 +44,17 @@ const updateTodoTextLocalStorage = (oldText, newText) => {
   updateStoredTodos(todos);
 };
 
+const removeStoredTodo = (todoElement) => {
+  const todos = getStoredTodos();
+
+  const todoText = todoElement.childNodes[0].innerText;
+  // TODO extra mile: try removing the todo item using `.filter()`
+  // this is to use a "functional programming" approach as opposed to mutation of the existing array
+  todos.splice(todos.indexOf(todoText), 1);
+
+  updateStoredTodos(todos);
+};
+
 const addToList = (todo) => {
   // TODO consider splitting this into two steps:
   // - create new todo DOM structure
@@ -138,6 +149,10 @@ const addToList = (todo) => {
   // add delete button
   deleteButton.innerHTML = "Delete";
   deleteButton.classList.add("delete-button");
+  deleteButton.addEventListener("click", () => {
+    removeStoredTodo(newTodo);
+    newTodo.remove();
+  });
   newTodo.appendChild(deleteButton);
 
   // append to the list
@@ -172,17 +187,6 @@ const setUser = () => {
   }
 };
 
-const removeStoredTodo = (todoElement) => {
-  const todos = getStoredTodos();
-
-  const todoText = todoElement.childNodes[0].innerText;
-  // TODO extra mile: try removing the todo item using `.filter()`
-  // this is to use a "functional programming" approach as opposed to mutation of the existing array
-  todos.splice(todos.indexOf(todoText), 1);
-
-  updateStoredTodos(todos);
-};
-
 addButton.addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -202,31 +206,17 @@ addButton.addEventListener("click", (event) => {
 });
 
 // TODO learn how Event Bubbling works in browsers
-todoList.addEventListener("click", (event) => {
+todoList.addEventListener("click", () => {
   // TODO do we assume that in ALL cases when a descendant element of todoList receives a click
   // its parent will be 100% a todo DOM element?
   // what happens if we change the DOM structure
-  const item = event.target;
-  // item = document.querySelector(`#${event.target.parentElement.id}`)
-
-  // getting the elements out what i need to manipulate in this function
-  const todoElement = item.parentElement;
-
   // TODO all buttons should have their own click handlers, rather than one click handler
   // on the main todoList DOM element
-
   // TODO which would be better? having a single button where we change its text Edit <-> Save
   // or two buttons which have their dedicated DOM element and their own functionality?
-
   // TODO it'd be better to have a CSS query collecting only the buttons
   // which are inside the todoList element, rather than all the buttons
   // in the whole of the document
-
-  // Delete Todo
-  if (item.classList[0] === "delete-button") {
-    removeStoredTodo(todoElement);
-    todoElement.remove();
-  }
 });
 
 // TODO todo elements have their display CSS attr set to flex in the stylesheet
