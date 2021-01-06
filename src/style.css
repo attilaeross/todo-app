@@ -33,35 +33,47 @@ form select {
   transition: all 0.3s ease;
 }
 
-.todo-container,
+.container,
 h2 {
   display: flex;
   font-size: 15px;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
 }
 
-.todo-list {
-  min-width: 30%;
+.list {
+  min-width: 100%;
   list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .todo {
   margin: 0.5rem;
-  background: white;
   color: black;
   font-size: 1.5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  transition: all 0.5s ease;
-}
-.todo li {
   flex: 1;
-  padding: 0.5rem;
 }
-.todo-item button {
+
+.todo .completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.todo .todo-text {
+  background: white;
+  flex-grow: 1;
+  padding: 11px 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.todo button {
   background: red;
+
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 90px;
   color: black;
   padding: 1rem;
   cursor: pointer;
@@ -78,13 +90,4 @@ button.save {
 }
 .todo-item {
   padding: 0rem 0.5rem;
-}
-.fa-trash,
-.fa-check {
-  pointer-events: none;
-}
-
-.completed {
-  text-decoration: line-through;
-  opacity: 0.5;
 }

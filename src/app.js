@@ -37,7 +37,7 @@ const update = (todoItem, todoEl) => {
 
 const createTodoEl = (id) => {
   const todoEl = document.createElement("li");
-  todoEl.classList.add("todo-item");
+  todoEl.classList.add("todo");
   todoEl.setAttribute("id", id);
   return todoEl;
 };
