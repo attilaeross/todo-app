@@ -62,6 +62,19 @@ const createCompleteButton = (todoItem, todoEl, editButton) => {
   return completeButton;
 };
 
+const createEditButton = (textEl, saveButton) => {
+  const editButton = document.createElement("button");
+  editButton.innerHTML = "Edit";
+  editButton.classList.add("edit-button");
+  editButton.addEventListener("click", () => {
+    textEl.contentEditable = true;
+    textEl.focus();
+    editButton.style.display = "none";
+    saveButton.style.display = "unset";
+  });
+  return editButton;
+};
+
 const render = (todoItem) => {
   // TODO consider splitting this into two steps:
   // - create new todo DOM structure
@@ -75,7 +88,10 @@ const render = (todoItem) => {
   const textElement = createTextEl(todoItem.text);
   newTodo.appendChild(textElement);
 
-  const editButton = document.createElement("button");
+  const saveButton = document.createElement("button");
+
+  const editButton = createEditButton(textElement, saveButton);
+  newTodo.appendChild(editButton);
 
   const completeButton = createCompleteButton(todoItem, newTodo, editButton);
   newTodo.appendChild(completeButton);
@@ -86,22 +102,11 @@ const render = (todoItem) => {
 
   // creating elements needed
 
-  const saveButton = document.createElement("button");
   const deleteButton = document.createElement("button");
 
   // add check mark button
 
   // add edit button
-  editButton.innerHTML = "Edit";
-  editButton.classList.add("edit-button");
-  editButton.addEventListener("click", () => {
-    // oldTodoText = textElement.innerText;
-
-    textElement.contentEditable = true;
-    textElement.focus();
-    editButton.style.display = "none";
-    saveButton.style.display = "unset";
-  });
 
   // add save button
   saveButton.innerHTML = "Save";
@@ -117,8 +122,6 @@ const render = (todoItem) => {
   });
 
   newTodo.appendChild(saveButton);
-
-  newTodo.appendChild(editButton);
 
   // add delete button
   deleteButton.innerHTML = "Delete";
