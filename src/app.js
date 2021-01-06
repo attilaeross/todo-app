@@ -47,6 +47,21 @@ const createTextEl = (text) => {
   textElement.innerHTML = text;
   return textElement;
 };
+
+const createCompleteButton = (todoItem, todoEl, editButton) => {
+  const completeButton = document.createElement("button");
+  completeButton.innerHTML = "Mark";
+  completeButton.classList.add("complete-button");
+  completeButton.addEventListener("click", () => {
+    todoEl.classList.toggle("complete");
+    editButton.disabled = todoEl.classList.contains("complete");
+
+    update(todoItem, todoEl);
+    persist(todoItems);
+  });
+  return completeButton;
+};
+
 const render = (todoItem) => {
   // TODO consider splitting this into two steps:
   // - create new todo DOM structure
@@ -60,30 +75,21 @@ const render = (todoItem) => {
   const textElement = createTextEl(todoItem.text);
   newTodo.appendChild(textElement);
 
+  const editButton = document.createElement("button");
+
+  const completeButton = createCompleteButton(todoItem, newTodo, editButton);
+  newTodo.appendChild(completeButton);
+
   // TODO consider moving the creation of these DOM elements to separate functions
   // which takes necessary parameters and returns a DOM element which then you can use
   // to add to the DOM
 
   // creating elements needed
 
-  const completedButton = document.createElement("button");
-  const editButton = document.createElement("button");
   const saveButton = document.createElement("button");
   const deleteButton = document.createElement("button");
 
   // add check mark button
-  completedButton.innerHTML = "Mark";
-  completedButton.classList.add("complete-button");
-  completedButton.addEventListener("click", () => {
-    newTodo.classList.toggle("complete");
-    newTodo.isComplete = newTodo.classList.contains("complete");
-    editButton.disabled = newTodo.classList.contains("complete");
-
-    update(newTodo);
-    persist(todoItems);
-  });
-
-  newTodo.appendChild(completedButton);
 
   // add edit button
   editButton.innerHTML = "Edit";
