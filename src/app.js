@@ -29,11 +29,9 @@ const remove = (todoItem) => {
   todoItems = todoItems.filter(({ id }) => todoItem.id !== id);
 };
 
-const updateTodoItems = (newTodo) => {
-  const { id } = newTodo;
-  const todoItem = todoItems.find((todo) => todo.id === id);
-  todoItem.text = newTodo.childNodes[0].innerHTML;
-  todoItem.isComplete = newTodo.classList.contains("complete");
+const update = (todoItem, todoEl) => {
+  todoItem.text = todoEl.childNodes[0].innerHTML;
+  todoItem.isComplete = todoEl.classList.contains("complete");
 };
 
 const addToList = (todo) => {
@@ -70,7 +68,7 @@ const addToList = (todo) => {
     newTodo.isComplete = newTodo.classList.contains("complete");
     editButton.disabled = newTodo.classList.contains("complete");
 
-    updateTodoItems(newTodo);
+    update(newTodo);
     persist(todoItems);
   });
 
@@ -100,7 +98,7 @@ const addToList = (todo) => {
     textElement.contentEditable = false;
     editButton.style.display = "unset";
     saveButton.style.display = "none";
-    updateTodoItems(newTodo);
+    update(newTodo);
     persist(todoItems);
   });
 
