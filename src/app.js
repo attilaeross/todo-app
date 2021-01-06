@@ -87,19 +87,19 @@ const render = (todoItem) => {
   // - create new todo DOM structure
   // - add new todo to the DOM
 
-  const newTodo = createTodoEl(todoItem.id);
+  const todoEl = createTodoEl(todoItem.id);
   if (todoItem.isComplete === true) {
-    newTodo.classList.toggle("complete");
+    todoEl.classList.toggle("complete");
   }
 
   const textElement = createTextEl(todoItem.text);
-  newTodo.appendChild(textElement);
+  todoEl.appendChild(textElement);
 
-  const editButton = createCommandButton(textElement, todoItem, newTodo);
-  newTodo.appendChild(editButton);
+  const editButton = createCommandButton(textElement, todoItem, todoEl);
+  todoEl.appendChild(editButton);
 
-  const completeButton = createCompleteButton(todoItem, newTodo, editButton);
-  newTodo.appendChild(completeButton);
+  const completeButton = createCompleteButton(todoItem, todoEl, editButton);
+  todoEl.appendChild(completeButton);
 
   // TODO consider moving the creation of these DOM elements to separate functions
   // which takes necessary parameters and returns a DOM element which then you can use
@@ -111,14 +111,14 @@ const render = (todoItem) => {
   deleteButton.innerHTML = "Delete";
   deleteButton.classList.add("delete-button");
   deleteButton.addEventListener("click", () => {
-    remove(newTodo);
+    remove(todoEl);
     persist(todoItems);
-    newTodo.remove();
+    todoEl.remove();
   });
-  newTodo.appendChild(deleteButton);
+  todoEl.appendChild(deleteButton);
 
   // append to the list
-  todoList.appendChild(newTodo);
+  todoList.appendChild(todoEl);
 };
 
 const loadSavedList = () => {
@@ -152,7 +152,7 @@ const setUser = () => {
 addButton.addEventListener("click", (event) => {
   event.preventDefault();
 
-  const textInput = document.querySelector("input.new-todo");
+  const textInput = document.querySelector("input.todo");
   const todo = {
     text: textInput.value,
     isComplete: false,
