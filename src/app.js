@@ -32,7 +32,7 @@ const remove = (todoItem) => {
 
 const update = (todoItem, todoEl) => {
   todoItem.text = todoEl.childNodes[0].innerHTML;
-  todoItem.isComplete = todoEl.classList.contains("complete");
+  todoItem.isComplete = todoEl.classList.contains("completed");
 };
 
 const createTodoEl = (id) => {
@@ -50,17 +50,17 @@ const createTextEl = (text) => {
 };
 
 const createCompleteButton = (todoItem, todoEl, editButton) => {
-  const completeButton = document.createElement("button");
-  completeButton.innerHTML = "Mark";
-  completeButton.classList.add("complete-button");
-  completeButton.addEventListener("click", () => {
-    todoEl.classList.toggle("complete");
-    editButton.disabled = todoEl.classList.contains("complete");
+  const button = document.createElement("button");
+  button.innerHTML = "Mark";
+  button.classList.add("complete");
+  button.addEventListener("click", () => {
+    todoEl.classList.toggle("completed");
+    editButton.disabled = todoEl.classList.contains("completed");
 
     update(todoItem, todoEl);
     persist(todoItems);
   });
-  return completeButton;
+  return button;
 };
 
 const createCommandButton = (textEl, todoItem, todoEl) => {
@@ -95,13 +95,14 @@ const createDeleteButton = (todoItem, todoEl) => {
     persist(todoItems);
     todoEl.remove();
   });
+  return button;
 };
 
 const render = (todoItem) => {
   const todoEl = createTodoEl(todoItem.id);
 
   if (todoItem.isComplete === true) {
-    todoEl.classList.toggle("complete");
+    todoEl.classList.toggle("completed");
   }
 
   const textElement = createTextEl(todoItem.text);
@@ -189,14 +190,14 @@ filterOption.addEventListener("change", (event) => {
     const { style } = todo;
     switch (event.target.value) {
       case "completed":
-        if (todo.classList.contains("complete")) {
+        if (todo.classList.contains("completed")) {
           style.display = "flex";
         } else {
           style.display = "none";
         }
         break;
       case "outstanding":
-        if (!todo.classList.contains("complete")) {
+        if (!todo.classList.contains("completed")) {
           style.display = "flex";
         } else {
           style.display = "none";
