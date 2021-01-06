@@ -86,12 +86,20 @@ const createCommandButton = (textEl, todoItem, todoEl) => {
   return button;
 };
 
-const render = (todoItem) => {
-  // TODO consider splitting this into two steps:
-  // - create new todo DOM structure
-  // - add new todo to the DOM
+const createDeleteButton = (todoItem, todoEl) => {
+  const button = document.createElement("button");
+  button.innerHTML = "Delete";
+  button.classList.add("delete");
+  button.addEventListener("click", () => {
+    remove(todoItem);
+    persist(todoItems);
+    todoEl.remove();
+  });
+};
 
+const render = (todoItem) => {
   const todoEl = createTodoEl(todoItem.id);
+
   if (todoItem.isComplete === true) {
     todoEl.classList.toggle("complete");
   }
@@ -105,20 +113,7 @@ const render = (todoItem) => {
   const completeButton = createCompleteButton(todoItem, todoEl, editButton);
   todoEl.appendChild(completeButton);
 
-  // TODO consider moving the creation of these DOM elements to separate functions
-  // which takes necessary parameters and returns a DOM element which then you can use
-  // to add to the DOM
-
-  const deleteButton = document.createElement("button");
-
-  // add delete button
-  deleteButton.innerHTML = "Delete";
-  deleteButton.classList.add("delete-button");
-  deleteButton.addEventListener("click", () => {
-    remove(todoEl);
-    persist(todoItems);
-    todoEl.remove();
-  });
+  const deleteButton = createDeleteButton(todoItem, todoEl);
   todoEl.appendChild(deleteButton);
 
   // append to the list
