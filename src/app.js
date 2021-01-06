@@ -40,28 +40,36 @@ const createTodoEl = (id) => {
   todoEl.setAttribute("id", id);
   return todoEl;
 };
+
+const createTextEl = (text) => {
+  const textElement = document.createElement("p");
+  textElement.classList.add("todo-text");
+  textElement.innerHTML = text;
+  return textElement;
+};
 const render = (todoItem) => {
   // TODO consider splitting this into two steps:
   // - create new todo DOM structure
   // - add new todo to the DOM
 
   const newTodo = createTodoEl(todoItem.id);
+  if (todoItem.isComplete === true) {
+    newTodo.classList.toggle("complete");
+  }
+
+  const textElement = createTextEl(todoItem.text);
+  newTodo.appendChild(textElement);
 
   // TODO consider moving the creation of these DOM elements to separate functions
   // which takes necessary parameters and returns a DOM element which then you can use
   // to add to the DOM
 
   // creating elements needed
-  const textElement = document.createElement("p");
+
   const completedButton = document.createElement("button");
   const editButton = document.createElement("button");
   const saveButton = document.createElement("button");
   const deleteButton = document.createElement("button");
-
-  // add text element
-  textElement.classList.add("todo-text");
-  textElement.innerHTML = todoItem.text;
-  newTodo.appendChild(textElement);
 
   // add check mark button
   completedButton.innerHTML = "Mark";
@@ -75,9 +83,6 @@ const render = (todoItem) => {
     persist(todoItems);
   });
 
-  if (todoItem.isComplete === true) {
-    newTodo.classList.toggle("complete");
-  }
   newTodo.appendChild(completedButton);
 
   // add edit button
