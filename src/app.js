@@ -21,8 +21,8 @@ const getStoredTodos = () => {
   return JSON.parse(localStorage.getItem(storageKey()));
 };
 
-const persist = (todos) => {
-  localStorage.setItem(storageKey(), JSON.stringify(todos));
+const persist = (todoItem) => {
+  localStorage.setItem(storageKey(), JSON.stringify(todoItem));
 };
 
 const removeTodoItem = (newTodo) => {
