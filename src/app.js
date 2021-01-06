@@ -34,15 +34,18 @@ const update = (todoItem, todoEl) => {
   todoItem.isComplete = todoEl.classList.contains("complete");
 };
 
-const addToList = (todo) => {
+const createTodoEl = (id) => {
+  const todoEl = document.createElement("li");
+  todoEl.classList.add("todo-item");
+  todoEl.setAttribute("id", id);
+  return todoEl;
+};
+const render = (todoItem) => {
   // TODO consider splitting this into two steps:
   // - create new todo DOM structure
   // - add new todo to the DOM
 
-  // prepare the structure
-  const newTodo = document.createElement("li");
-  newTodo.classList.add("todo-item");
-  newTodo.setAttribute("id", todo.id);
+  const newTodo = createTodoEl(todoItem.id);
 
   // TODO consider moving the creation of these DOM elements to separate functions
   // which takes necessary parameters and returns a DOM element which then you can use
@@ -57,7 +60,7 @@ const addToList = (todo) => {
 
   // add text element
   textElement.classList.add("todo-text");
-  textElement.innerHTML = todo.text;
+  textElement.innerHTML = todoItem.text;
   newTodo.appendChild(textElement);
 
   // add check mark button
@@ -72,7 +75,7 @@ const addToList = (todo) => {
     persist(todoItems);
   });
 
-  if (todo.isComplete === true) {
+  if (todoItem.isComplete === true) {
     newTodo.classList.toggle("complete");
   }
   newTodo.appendChild(completedButton);
@@ -128,7 +131,7 @@ const loadSavedList = () => {
   const todos = getStoredTodos(userKey);
 
   todos.forEach((todo) => {
-    addToList(todo);
+    render(todo);
     todoItems.push(todo);
   });
 };
@@ -159,7 +162,7 @@ addButton.addEventListener("click", (event) => {
   };
 
   todoItems.push(todo);
-  addToList(todo);
+  render(todo);
   persist(todoItems);
 
   // clear todo input value;
