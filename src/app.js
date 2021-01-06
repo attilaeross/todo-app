@@ -25,9 +25,8 @@ const persist = (todoItem) => {
   localStorage.setItem(storageKey(), JSON.stringify(todoItem));
 };
 
-const removeTodoItem = (newTodo) => {
-  const { id } = newTodo;
-  todoItems = todoItems.filter((todo) => todo.id !== id);
+const remove = (todoItem) => {
+  todoItems = todoItems.filter(({ id }) => todoItem.id !== id);
 };
 
 const updateTodoItems = (newTodo) => {
@@ -113,7 +112,7 @@ const addToList = (todo) => {
   deleteButton.innerHTML = "Delete";
   deleteButton.classList.add("delete-button");
   deleteButton.addEventListener("click", () => {
-    removeTodoItem(newTodo);
+    remove(newTodo);
     persist(todoItems);
     newTodo.remove();
   });
