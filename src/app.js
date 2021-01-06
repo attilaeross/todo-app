@@ -21,7 +21,7 @@ const getStoredTodos = () => {
   return JSON.parse(localStorage.getItem(storageKey()));
 };
 
-const updateStoredTodos = (todos) => {
+const persist = (todos) => {
   localStorage.setItem(storageKey(), JSON.stringify(todos));
 };
 
@@ -72,7 +72,7 @@ const addToList = (todo) => {
     editButton.disabled = newTodo.classList.contains("complete");
 
     updateTodoItems(newTodo);
-    updateStoredTodos(todoItems);
+    persist(todoItems);
   });
 
   if (todo.isComplete === true) {
@@ -102,7 +102,7 @@ const addToList = (todo) => {
     editButton.style.display = "unset";
     saveButton.style.display = "none";
     updateTodoItems(newTodo);
-    updateStoredTodos(todoItems);
+    persist(todoItems);
   });
 
   newTodo.appendChild(saveButton);
@@ -114,7 +114,7 @@ const addToList = (todo) => {
   deleteButton.classList.add("delete-button");
   deleteButton.addEventListener("click", () => {
     removeTodoItem(newTodo);
-    updateStoredTodos(todoItems);
+    persist(todoItems);
     newTodo.remove();
   });
   newTodo.appendChild(deleteButton);
@@ -163,7 +163,7 @@ addButton.addEventListener("click", (event) => {
 
   todoItems.push(todo);
   addToList(todo);
-  updateStoredTodos(todoItems);
+  persist(todoItems);
 
   // clear todo input value;
   textInput.value = "";
