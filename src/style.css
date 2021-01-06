@@ -60,10 +60,7 @@ h2 {
   flex: 1;
   padding: 0.5rem;
 }
-.delete-button,
-.complete-button,
-.edit-button,
-.save-button {
+.todo-item button {
   background: red;
   color: black;
   padding: 1rem;
@@ -73,10 +70,10 @@ h2 {
 .complete-button {
   background: chartreuse;
 }
-.edit-button {
+button.edit {
   background: rgb(251, 255, 0);
 }
-.save-button {
+button.save {
   background: rgb(0, 102, 255);
 }
 .todo-item {

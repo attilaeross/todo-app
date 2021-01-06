@@ -66,17 +66,21 @@ const createCompleteButton = (todoItem, todoEl, editButton) => {
 const createCommandButton = (textEl, todoItem, todoEl) => {
   const button = document.createElement("button");
   button.innerHTML = "Edit";
-  button.classList.add("edit-button");
+  button.classList.add("edit");
   button.addEventListener("click", () => {
     if (button.innerHTML === "Edit") {
       textEl.contentEditable = true;
       textEl.focus();
       button.innerHTML = "Save";
+      button.classList.remove("edit");
+      button.classList.add("save");
     } else {
       textEl.contentEditable = false;
       update(todoItem, todoEl);
       persist(todoItems);
       button.innerHTML = "Edit";
+      button.classList.remove("save");
+      button.classList.add("edit");
     }
   });
   return button;
