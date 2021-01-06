@@ -57,7 +57,7 @@ h2 {
   flex: 1;
 }
 
-.todo .completed {
+.completed {
   text-decoration: line-through;
   opacity: 0.5;
 }

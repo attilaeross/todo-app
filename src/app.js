@@ -149,7 +149,7 @@ const setUser = () => {
 addButton.addEventListener("click", (event) => {
   event.preventDefault();
 
-  const textInput = document.querySelector("input.todo");
+  const textInput = document.querySelector("input.new-todo");
   const todo = {
     text: textInput.value,
     isComplete: false,
