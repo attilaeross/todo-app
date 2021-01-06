@@ -11,8 +11,6 @@ const listHeader = document.querySelector("h2.list-header");
 let userKey;
 let todoItems = [];
 
-// Functions
-
 const storageKey = () => `${userKey}Todos`;
 
 const getStoredTodos = () => {
@@ -117,7 +115,6 @@ const render = (todoItem) => {
   const deleteButton = createDeleteButton(todoItem, todoEl);
   todoEl.appendChild(deleteButton);
 
-  // append to the list
   todoList.appendChild(todoEl);
 };
 
@@ -165,20 +162,6 @@ addButton.addEventListener("click", (event) => {
 
   // clear todo input value;
   textInput.value = "";
-});
-
-// TODO learn how Event Bubbling works in browsers
-todoList.addEventListener("click", () => {
-  // TODO do we assume that in ALL cases when a descendant element of todoList receives a click
-  // its parent will be 100% a todo DOM element?
-  // what happens if we change the DOM structure
-  // TODO all buttons should have their own click handlers, rather than one click handler
-  // on the main todoList DOM element
-  // TODO which would be better? having a single button where we change its text Edit <-> Save
-  // or two buttons which have their dedicated DOM element and their own functionality?
-  // TODO it'd be better to have a CSS query collecting only the buttons
-  // which are inside the todoList element, rather than all the buttons
-  // in the whole of the document
 });
 
 // TODO todo elements have their display CSS attr set to flex in the stylesheet
