@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // Getting Elements - selectors
 
 const addButton = document.querySelector("button.add");
@@ -62,17 +63,23 @@ const createCompleteButton = (todoItem, todoEl, editButton) => {
   return completeButton;
 };
 
-const createEditButton = (textEl, saveButton) => {
-  const editButton = document.createElement("button");
-  editButton.innerHTML = "Edit";
-  editButton.classList.add("edit-button");
-  editButton.addEventListener("click", () => {
-    textEl.contentEditable = true;
-    textEl.focus();
-    editButton.style.display = "none";
-    saveButton.style.display = "unset";
+const createCommandButton = (textEl, todoItem, todoEl) => {
+  const button = document.createElement("button");
+  button.innerHTML = "Edit";
+  button.classList.add("edit-button");
+  button.addEventListener("click", () => {
+    if (button.innerHTML === "Edit") {
+      textEl.contentEditable = true;
+      textEl.focus();
+      button.innerHTML = "Save";
+    } else {
+      textEl.contentEditable = false;
+      update(todoItem, todoEl);
+      persist(todoItems);
+      button.innerHTML = "Edit";
+    }
   });
-  return editButton;
+  return button;
 };
 
 const render = (todoItem) => {
@@ -88,9 +95,7 @@ const render = (todoItem) => {
   const textElement = createTextEl(todoItem.text);
   newTodo.appendChild(textElement);
 
-  const saveButton = document.createElement("button");
-
-  const editButton = createEditButton(textElement, saveButton);
+  const editButton = createCommandButton(textElement, todoItem, newTodo);
   newTodo.appendChild(editButton);
 
   const completeButton = createCompleteButton(todoItem, newTodo, editButton);
@@ -100,28 +105,7 @@ const render = (todoItem) => {
   // which takes necessary parameters and returns a DOM element which then you can use
   // to add to the DOM
 
-  // creating elements needed
-
   const deleteButton = document.createElement("button");
-
-  // add check mark button
-
-  // add edit button
-
-  // add save button
-  saveButton.innerHTML = "Save";
-  saveButton.classList.add("save-button");
-  saveButton.style.display = "none";
-  saveButton.addEventListener("click", () => {
-    // setting attributes
-    textElement.contentEditable = false;
-    editButton.style.display = "unset";
-    saveButton.style.display = "none";
-    update(newTodo);
-    persist(todoItems);
-  });
-
-  newTodo.appendChild(saveButton);
 
   // add delete button
   deleteButton.innerHTML = "Delete";
