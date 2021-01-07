@@ -8,10 +8,10 @@ const changeUserButton = document.querySelector("button.change-user");
 const listHeader = document.querySelector("h2.list-header");
 
 // global variables
-let userKey;
+let userName;
 let todoItems = [];
 
-const storageKey = () => `${userKey}Todos`;
+const storageKey = () => `${userName}Todos`;
 
 const getStoredTodos = () => {
   if (localStorage.getItem(storageKey()) === null) {
@@ -123,7 +123,7 @@ const loadSavedList = () => {
     todoList.removeChild(todoList.firstChild);
   }
 
-  const todos = getStoredTodos(userKey);
+  const todos = getStoredTodos(userName);
 
   todos.forEach((todo) => {
     render(todo);
@@ -133,16 +133,14 @@ const loadSavedList = () => {
 
 const setUser = () => {
   // eslint-disable-next-line no-alert
-  const userName = prompt(
-    "Please enter your name...Single name please...for now"
-  );
-  if (!userName) {
+  const input = prompt("Please enter your name...Single name please...for now");
+  if (!input) {
     setUser();
   } else {
     todoItems = [];
-    userKey = userName.toLowerCase().trim();
+    userName = input.toLowerCase().trim();
     loadSavedList();
-    listHeader.innerHTML = `Todo list for ${userName}`;
+    listHeader.innerHTML = `Todo list for ${input}`;
   }
 };
 
@@ -193,5 +191,6 @@ filterOption.addEventListener("change", (event) => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", setUser);
 changeUserButton.addEventListener("click", setUser);
+
+document.addEventListener("DOMContentLoaded", setUser);
