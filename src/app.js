@@ -118,28 +118,32 @@ const render = (todoItem) => {
   todoList.appendChild(todoEl);
 };
 
-const loadSavedList = () => {
+const removeAllTodoElements = () => {
   while (todoList.firstChild) {
     todoList.removeChild(todoList.firstChild);
   }
+};
 
-  const todos = getStoredTodos(userName);
-
+const renderAll = (todos) => {
   todos.forEach((todo) => {
     render(todo);
-    todoItems.push(todo);
   });
 };
 
 const setUser = () => {
   // eslint-disable-next-line no-alert
-  const input = prompt("Please enter your name...Single name please...for now");
+  const input = prompt("Please enter your name...");
+
   if (!input) {
     setUser();
   } else {
-    todoItems = [];
     userName = input.toLowerCase().trim();
-    loadSavedList();
+    todoItems = getStoredTodos(userName);
+
+    removeAllTodoElements();
+
+    renderAll(todoItems);
+
     listHeader.innerHTML = `Todo list for ${input}`;
   }
 };
