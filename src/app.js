@@ -162,27 +162,18 @@ addButton.addEventListener("click", (event) => {
   textInput.value = "";
 });
 
-// TODO todo elements have their display CSS attr set to flex in the stylesheet
-// could we hide/show them by adding a style attr display and remove it
-// rather than adding an extra `display: flex`?
 filterOption.addEventListener("change", (event) => {
   const todos = todoList.childNodes;
+  const { value: filter } = event.target;
   todos.forEach((todo) => {
     const { style } = todo;
-    switch (event.target.value) {
+    const completed = todo.classList.contains("completed");
+    switch (filter) {
       case "completed":
-        if (todo.classList.contains("completed")) {
-          style.display = "flex";
-        } else {
-          style.display = "none";
-        }
+        style.display = completed ? "flex" : "none";
         break;
       case "outstanding":
-        if (!todo.classList.contains("completed")) {
-          style.display = "flex";
-        } else {
-          style.display = "none";
-        }
+        style.display = completed ? "none" : "flex";
         break;
       default:
         style.display = "flex";
