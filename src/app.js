@@ -34,17 +34,17 @@ const update = (todoItem, todoEl) => {
 };
 
 const createTodoEl = (id) => {
-  const todoEl = document.createElement("li");
-  todoEl.classList.add("todo");
-  todoEl.setAttribute("id", id);
-  return todoEl;
+  const li = document.createElement("li");
+  li.classList.add("todo");
+  li.setAttribute("id", id);
+  return li;
 };
 
 const createTextEl = (text) => {
-  const textElement = document.createElement("p");
-  textElement.classList.add("todo-text");
-  textElement.innerHTML = text;
-  return textElement;
+  const p = document.createElement("p");
+  p.classList.add("todo-text");
+  p.innerHTML = text;
+  return p;
 };
 
 const createCompleteButton = (todoItem, todoEl, editButton) => {
@@ -61,7 +61,7 @@ const createCompleteButton = (todoItem, todoEl, editButton) => {
   return button;
 };
 
-const createCommandButton = (textEl, todoItem, todoEl) => {
+const createCommandButton = (textEl, saveTodoItem) => {
   const button = document.createElement("button");
   button.innerHTML = "Edit";
   button.classList.add("edit");
@@ -74,8 +74,7 @@ const createCommandButton = (textEl, todoItem, todoEl) => {
       button.classList.add("save");
     } else {
       textEl.contentEditable = false;
-      update(todoItem, todoEl);
-      persist(todoItems);
+      saveTodoItem();
       button.innerHTML = "Edit";
       button.classList.remove("save");
       button.classList.add("edit");
@@ -106,7 +105,10 @@ const render = (todoItem) => {
   const textElement = createTextEl(todoItem.text);
   todoEl.appendChild(textElement);
 
-  const editButton = createCommandButton(textElement, todoItem, todoEl);
+  const editButton = createCommandButton(textElement, () => {
+    update(todoItem, todoEl);
+    persist(todoItems);
+  });
   todoEl.appendChild(editButton);
 
   const completeButton = createCompleteButton(todoItem, todoEl, editButton);
