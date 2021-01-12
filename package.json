@@ -19,8 +19,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint",
+      "pre-commit": "lint-staged",
       "pre-push": "circleci config validate"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint",
+      "prettier --write"
+    ]
   }
 }
