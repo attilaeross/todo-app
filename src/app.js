@@ -47,16 +47,14 @@ const createTextEl = (text) => {
   return p;
 };
 
-const createCompleteButton = (todoItem, todoEl, editButton) => {
+const createCompleteButton = (todoEl, editButton, saveTodoItem) => {
   const button = document.createElement("button");
   button.innerHTML = "Mark";
   button.classList.add("complete");
   button.addEventListener("click", () => {
     todoEl.classList.toggle("completed");
     editButton.disabled = todoEl.classList.contains("completed");
-
-    update(todoItem, todoEl);
-    persist(todoItems);
+    saveTodoItem();
   });
   return button;
 };
@@ -83,13 +81,12 @@ const createCommandButton = (textEl, saveTodoItem) => {
   return button;
 };
 
-const createDeleteButton = (todoItem, todoEl) => {
+const createDeleteButton = (todoEl, removeTodoItem) => {
   const button = document.createElement("button");
   button.innerHTML = "Delete";
   button.classList.add("delete");
   button.addEventListener("click", () => {
-    remove(todoItem);
-    persist(todoItems);
+    removeTodoItem();
     todoEl.remove();
   });
   return button;
@@ -111,10 +108,16 @@ const render = (todoItem) => {
   });
   todoEl.appendChild(editButton);
 
-  const completeButton = createCompleteButton(todoItem, todoEl, editButton);
+  const completeButton = createCompleteButton(todoEl, editButton, () => {
+    update(todoItem, todoEl);
+    persist(todoItems);
+  });
   todoEl.appendChild(completeButton);
 
-  const deleteButton = createDeleteButton(todoItem, todoEl);
+  const deleteButton = createDeleteButton(todoEl, () => {
+    remove(todoItem);
+    persist(todoItems);
+  });
   todoEl.appendChild(deleteButton);
 
   todoList.appendChild(todoEl);
