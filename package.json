@@ -10,10 +10,17 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-import": "^2.22.1",
+    "husky": "^4.3.7",
     "prettier": "2.2.1"
   },
   "scripts": {
     "lint": "eslint src",
     "start": "cd src && python -m SimpleHTTPServer 8000"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "circleci config validate"
+    }
   }
 }
