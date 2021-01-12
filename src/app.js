@@ -8,7 +8,7 @@ const changeUserButton = document.querySelector("button.change-user");
 const listHeader = document.querySelector("h2.list-header");
 
 // global variables
-let userName;
+       let userName;
 let todoItems = [];
 
 const storageKey = () => `${userName}Todos`;

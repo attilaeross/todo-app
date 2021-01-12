@@ -12,6 +12,9 @@ jobs:
       - run:
           name: Lint
           command: yarn lint
+      - run:
+          name: Prettier
+          command: yarn prettier --check "src/**/*.js"
 
 workflows:
   version: 2.1
