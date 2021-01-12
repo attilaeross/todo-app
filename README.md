@@ -22,3 +22,9 @@ The tools used to aid local development are the following:
 npm scripts:
 
 - `lint` to run eslint on the JavaScript files in the `src` folder
+
+## CI pipeline
+
+The project has an automated CI pipeline set up on CircleCI to run quality checks e.g. linting and prettier:
+
+![CI pipeline](CI-pipeline.png)
