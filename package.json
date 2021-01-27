@@ -25,12 +25,13 @@
   "scripts": {
     "lint": "eslint src",
     "start": "cd src && python -m SimpleHTTPServer 8000",
-    "test": "jest"
+    "test": "jest",
+    "validate-ci-config": "circleci config validate"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "circleci config validate"
+      "pre-push": "yarn validate-ci-config && yarn test"
     }
   },
   "lint-staged": {
