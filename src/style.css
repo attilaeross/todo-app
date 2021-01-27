@@ -33,8 +33,7 @@ form select {
   transition: all 0.3s ease;
 }
 
-.container,
-h2 {
+h2.list-header {
   font-size: 15px;
   padding: 20px;
 }

@@ -62,12 +62,10 @@ export default function createApp(rootElement) {
   };
 
   const createTodoList = () => {
-    const divEl = document.createElement("div");
-    divEl.classList.add("container");
     const ulEl = document.createElement("ul");
     ulEl.classList.add("list");
-    divEl.appendChild(ulEl);
-    return divEl;
+    ulEl.setAttribute("data-testid", "todo-list");
+    return ulEl;
   };
 
   const changeUserBtn = createBtn("change-user", "Change User");
