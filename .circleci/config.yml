@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test:
+  quality-check:
     docker:
       - image: cimg/node:lts
     steps:
@@ -15,9 +15,12 @@ jobs:
       - run:
           name: Prettier
           command: yarn prettier --check "src/**/*.js"
+      - run:
+          name: Unit test
+          command: yarn test
 
 workflows:
   version: 2.1
   build:
     jobs:
-      - test
+      - quality-check
