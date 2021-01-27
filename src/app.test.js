@@ -1,15 +1,13 @@
-// import { createApp } from "./app";
-// import userevent from '@testing-library/user-event'
+import { screen } from "@testing-library/dom";
+import createApp from "./app";
+// import userEvent from "@testing-library/user-event";
 
-test("renders the todo app", () => {
-  //   // setup
-  //   const root = ...
-  //   const container = createApp(root)
-  //   // act
-  //   const input = queryByPlaceholderText('Please enter todo here')
-  //   userevent.type(input, 'new task')
-  //   const addButton = queryByText('Add')
-  //   userevent('click', addButton)
-  //   // assert
-  expect(true).tobee(true);
+test("renders empty todo list when starts", () => {
+  // setup
+  const root = document.body;
+  createApp(root);
+  const todoList = screen.getByTestId("todo-list");
+  // act
+  // assert
+  expect(todoList).toBeEmptyDOMElement();
 });
