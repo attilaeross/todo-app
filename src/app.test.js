@@ -20,9 +20,8 @@ test("shows new item in todo list when added", () => {
   const inputText = "Take wife for a walk!";
 
   // act
-  input.value = inputText;
+  userEvent.type(input, inputText);
   userEvent.click(addButton);
-  // fireEvent.click(addButton);
 
   // assert
   const todoList = screen.getByTestId("todo-list");
