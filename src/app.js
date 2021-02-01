@@ -80,6 +80,7 @@ export default function createApp(rootElement) {
   form.appendChild(inputElement);
 
   const addButton = createBtn("add", "Add");
+  addButton.setAttribute("data-testid", "add-button");
   form.appendChild(addButton);
 
   const filterOption = createFilterElement();
@@ -129,6 +130,7 @@ export default function createApp(rootElement) {
   const createTextEl = (text) => {
     const p = document.createElement("p");
     p.classList.add("todo-text");
+    p.setAttribute("data-testid", "text-element");
     p.innerHTML = text;
     return p;
   };
