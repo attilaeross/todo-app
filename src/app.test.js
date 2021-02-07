@@ -16,7 +16,7 @@ test("renders empty todo list when starts", () => {
 test("shows new item in todo list when added", () => {
   // setup
   const input = screen.getByPlaceholderText("Please enter todo here");
-  const addButton = screen.getByTestId("add-button");
+  const addButton = screen.getByText("Add");
   const inputText = "Take wife for a walk!";
 
   // act
@@ -32,7 +32,7 @@ test("shows new item in todo list when added", () => {
 test("should delete an item from todo List", () => {
   // setup
   const input = screen.getByPlaceholderText("Please enter todo here");
-  const addButton = screen.getByTestId("add-button");
+  const addButton = screen.getByText("Add");
   const inputText = "Todo to be deleted!";
 
   // act

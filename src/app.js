@@ -80,7 +80,6 @@ export default function createApp(rootElement) {
   form.appendChild(inputElement);
 
   const addButton = createBtn("add", "Add");
-  addButton.setAttribute("data-testid", "add-button");
   form.appendChild(addButton);
 
   const filterOption = createFilterElement();
