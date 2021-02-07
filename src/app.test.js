@@ -1,4 +1,4 @@
-import { screen, getByText } from "@testing-library/dom";
+import { screen, getByText, queryByText } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import createApp from "./app";
 // import userEvent from "@testing-library/user-event";
@@ -17,16 +17,14 @@ test("shows new item in todo list when added", () => {
   // setup
   const input = screen.getByPlaceholderText("Please enter todo here");
   const addButton = screen.getByText("Add");
-  const inputText = "Take wife for a walk!";
 
   // act
-  userEvent.type(input, inputText);
+  userEvent.type(input, "Take wife for a walk!");
   userEvent.click(addButton);
 
   // assert
   const todoList = screen.getByTestId("todo-list");
-  const todoTextElement = getByText(todoList, "Take wife for a walk!");
-  expect(todoTextElement).toHaveTextContent(inputText);
+  expect(queryByText(todoList, "Take wife for a walk!")).toBeInTheDocument();
 });
 
 test("should delete an item from todo List", () => {
