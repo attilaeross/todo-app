@@ -27,7 +27,7 @@ test("shows new item in todo list when added", () => {
   expect(queryByText(todoList, "Take wife for a walk!")).toBeInTheDocument();
 });
 
-test("should delete an item from todo List", () => {
+test("removes an item from todo List when user clicks Delete button", () => {
   // setup
   const input = screen.getByPlaceholderText("Please enter todo here");
   const addButton = screen.getByText("Add");
