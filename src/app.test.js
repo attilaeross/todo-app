@@ -1,7 +1,6 @@
 import { screen, getByText, queryByText } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import createApp from "./app";
-// import userEvent from "@testing-library/user-event";
 
 test("renders empty todo list when starts", () => {
   // setup
