@@ -63,7 +63,19 @@ test("removes an item from todo List when user clicks Delete button", () => {
   ).not.toBeInTheDocument();
 });
 
-test.todo("marks an item as completed when user clicks Complete button");
+test("marks an item as completed when user clicks Complete button", () => {
+  // setup
+  addTodo("Take wife for a walk!");
+
+  // act
+  const todoList = screen.getByTestId("todo-list");
+  const completeButton = getByText(todoList, "Mark");
+  userEvent.click(completeButton);
+
+  // assert
+  const textElement = queryByText(todoList, "Take wife for a walk!");
+  expect(textElement).toHaveClass("completed");
+});
 
 /**
  * - add new todo
