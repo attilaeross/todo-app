@@ -2,10 +2,37 @@ import { screen, getByText, queryByText } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import createApp from "./app";
 
+let destroyApp;
+
+const setup = () => {
+  const root = document.body;
+  destroyApp = createApp(root);
+};
+
+const tearDown = () => {
+  document.body.innerHTML = "";
+  destroyApp();
+};
+
+beforeEach(() => {
+  setup();
+});
+
+afterEach(() => {
+  tearDown();
+});
+
+const addTodo = (text) => {
+  const input = screen.getByPlaceholderText("Please enter todo here");
+  const addButton = screen.getByText("Add");
+
+  // act
+  userEvent.type(input, text);
+  userEvent.click(addButton);
+};
+
 test("renders empty todo list when starts", () => {
   // setup
-  const root = document.body;
-  createApp(root);
   const todoList = screen.getByTestId("todo-list");
   // act
   // assert
@@ -13,13 +40,8 @@ test("renders empty todo list when starts", () => {
 });
 
 test("shows new item in todo list when added", () => {
-  // setup
-  const input = screen.getByPlaceholderText("Please enter todo here");
-  const addButton = screen.getByText("Add");
-
   // act
-  userEvent.type(input, "Take wife for a walk!");
-  userEvent.click(addButton);
+  addTodo("Take wife for a walk!");
 
   // assert
   const todoList = screen.getByTestId("todo-list");
@@ -28,6 +50,7 @@ test("shows new item in todo list when added", () => {
 
 test("removes an item from todo List when user clicks Delete button", () => {
   // setup
+  addTodo("Take wife for a walk!");
 
   // act
   const todoList = screen.getByTestId("todo-list");
