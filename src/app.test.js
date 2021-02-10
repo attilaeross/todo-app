@@ -62,3 +62,16 @@ test("removes an item from todo List when user clicks Delete button", () => {
     queryByText(todoList, "Take wife for a walk!")
   ).not.toBeInTheDocument();
 });
+
+test.todo("marks an item as completed when user clicks Complete button");
+
+/**
+ * - add new todo
+ * - find edit button
+ * - click edit button
+ * - edit text of todo
+ * - click save button
+ * - result : new todo in list / old not present
+ * - save button disappears / edit button shows
+ */
+test.todo("allows user to edit todo item");
