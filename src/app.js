@@ -281,4 +281,10 @@ export default function createApp(rootElement) {
   changeUserBtn.addEventListener("click", setUser);
 
   document.addEventListener("DOMContentLoaded", setUser);
+
+  const destroy = () => {
+    document.removeEventListener("DOMContentLoaded", setUser);
+  };
+
+  return destroy;
 }
