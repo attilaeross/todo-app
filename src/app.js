@@ -51,10 +51,11 @@ export default function createApp(rootElement) {
   const createFilterElement = () => {
     const selectEl = document.createElement("select");
     let option;
-    const inputData = "All,completed,Outstanding";
+    const inputData = "All,Completed,Outstanding";
     inputData.split(",").forEach((item) => {
       option = document.createElement("option");
       option.value = item.toLowerCase();
+      option.setAttribute("data-testid", item.toLowerCase());
       option.innerHTML = item;
       selectEl.appendChild(option);
     });

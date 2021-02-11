@@ -109,3 +109,46 @@ test("allows user to edit todo item", () => {
     queryByDisplayValue(todoList, "Take dog for a walk!")
   ).toBeInTheDocument();
 });
+/**
+ * - add 2 todos
+ * - mark first as completed
+ * - check if filter option is all?
+ * - check if both todos show in list
+ */
+test("shows all todos by default", () => {
+  // setup
+  const todoList = screen.getByTestId("todo-list");
+  addTodo("Take wife for a walk!");
+  const completeButton = getByText(todoList, "Mark");
+  userEvent.click(completeButton);
+  addTodo("Take dog for a walk!");
+
+  // act
+
+  // assert
+  expect(screen.getByTestId("all").selected).toBe(true);
+  expect(
+    queryByDisplayValue(todoList, "Take wife for a walk!")
+  ).toBeInTheDocument();
+  expect(
+    queryByDisplayValue(todoList, "Take dog for a walk!")
+  ).toBeInTheDocument();
+});
+
+/**
+ * - add 2 todos
+ * - mark first as completed
+ * - select filer completed
+ * - check list to show just completed todo
+ * - check list not to show outstanding todo
+ */
+test.todo("shows completed todos when filter is set to Completed");
+
+/**
+ * - add 2 todos
+ * - mark first as completed
+ * - select filer Outstanding
+ * - check list to show just outstanding (not completed) todo
+ * - check list not to show completed todo
+ */
+test.todo("shows outstanding todos when filter is set to Outstanding");
