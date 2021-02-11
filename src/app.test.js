@@ -84,13 +84,28 @@ test("marks an item as completed when user clicks Complete button", () => {
   expect(textElement).toHaveClass("completed");
 });
 
-/**
- * - add new todo
- * - find edit button
- * - click edit button
- * - edit text of todo
- * - click save button
- * - result : new todo in list / old not present
- * - save button disappears / edit button shows
- */
-test.todo("allows user to edit todo item");
+test("allows user to edit todo item", () => {
+  // setup
+  addTodo("Take wife for a walk!");
+  const todoList = screen.getByTestId("todo-list");
+
+  // act
+
+  const editButton = getByText(todoList, "Edit");
+  userEvent.click(editButton);
+
+  const textElement = queryByDisplayValue(todoList, "Take wife for a walk!");
+  textElement.setSelectionRange(0, textElement.value.length);
+  userEvent.type(textElement, "Take dog for a walk!");
+
+  const saveButton = getByText(todoList, "Save");
+  userEvent.click(saveButton);
+
+  // assert
+  expect(
+    queryByDisplayValue(todoList, "Take wife for a walk!")
+  ).not.toBeInTheDocument();
+  expect(
+    queryByDisplayValue(todoList, "Take dog for a walk!")
+  ).toBeInTheDocument();
+});
