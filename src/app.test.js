@@ -1,4 +1,9 @@
-import { screen, getByText, queryByText } from "@testing-library/dom";
+import {
+  screen,
+  getByText,
+  getByDisplayValue,
+  queryByDisplayValue,
+} from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import createApp from "./app";
 
@@ -45,7 +50,9 @@ test("shows new item in todo list when added", () => {
 
   // assert
   const todoList = screen.getByTestId("todo-list");
-  expect(queryByText(todoList, "Take wife for a walk!")).toBeInTheDocument();
+  expect(
+    getByDisplayValue(todoList, "Take wife for a walk!")
+  ).toBeInTheDocument();
 });
 
 test("removes an item from todo List when user clicks Delete button", () => {
@@ -59,7 +66,7 @@ test("removes an item from todo List when user clicks Delete button", () => {
 
   // assert
   expect(
-    queryByText(todoList, "Take wife for a walk!")
+    queryByDisplayValue(todoList, "Take wife for a walk!")
   ).not.toBeInTheDocument();
 });
 
@@ -73,7 +80,7 @@ test("marks an item as completed when user clicks Complete button", () => {
   userEvent.click(completeButton);
 
   // assert
-  const textElement = queryByText(todoList, "Take wife for a walk!");
+  const textElement = getByDisplayValue(todoList, "Take wife for a walk!");
   expect(textElement).toHaveClass("completed");
 });
 

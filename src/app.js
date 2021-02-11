@@ -115,7 +115,7 @@ export default function createApp(rootElement) {
   };
 
   const update = (todoItem, todoEl) => {
-    todoItem.text = todoEl.childNodes[0].innerHTML;
+    todoItem.text = todoEl.childNodes[0].value;
     todoItem.isComplete = todoEl.classList.contains("completed");
   };
 
@@ -127,11 +127,12 @@ export default function createApp(rootElement) {
   };
 
   const createTextEl = (text) => {
-    const p = document.createElement("p");
-    p.classList.add("todo-text");
-    p.setAttribute("data-testid", "text-element");
-    p.innerHTML = text;
-    return p;
+    const textEl = document.createElement("input");
+    textEl.type = "text";
+    textEl.disabled = true;
+    textEl.classList.add("todo-text");
+    textEl.value = text;
+    return textEl;
   };
 
   const createCompleteButton = (onClick) => {
@@ -148,13 +149,13 @@ export default function createApp(rootElement) {
     button.classList.add("edit");
     button.addEventListener("click", () => {
       if (button.innerHTML === "Edit") {
-        textEl.contentEditable = true;
+        textEl.disabled = false;
         textEl.focus();
         button.innerHTML = "Save";
         button.classList.remove("edit");
         button.classList.add("save");
       } else {
-        textEl.contentEditable = false;
+        textEl.disabled = true;
         saveTodoItem();
         button.innerHTML = "Edit";
         button.classList.remove("save");

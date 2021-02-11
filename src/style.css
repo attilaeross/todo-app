@@ -62,7 +62,7 @@ h2.list-header {
 .todo .todo-text {
   background: white;
   flex-grow: 1;
-  padding: 11px 20px;
+  padding: 1rem;
   border: 1px solid white;
   border-radius: 5px;
 }
