@@ -153,16 +153,10 @@ test("shows completed todos when filter is set to Completed", () => {
   // assert
   expect(screen.getByTestId("completed").selected).toBe(true);
 
+  expect(queryByDisplayValue(todoList, "Take wife for a walk!")).toBeVisible();
   expect(
-    queryByDisplayValue(todoList, "Take wife for a walk!").parentElement
-  ).toHaveStyle({
-    display: "flex",
-  });
-  expect(
-    queryByDisplayValue(todoList, "Take dog for a walk!").parentElement
-  ).toHaveStyle({
-    display: "none",
-  });
+    queryByDisplayValue(todoList, "Take dog for a walk!")
+  ).not.toBeVisible();
 });
 
 test("shows outstanding todos when filter is set to Outstanding", () => {
