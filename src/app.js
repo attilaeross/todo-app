@@ -50,6 +50,7 @@ export default function createApp(rootElement) {
 
   const createFilterElement = () => {
     const selectEl = document.createElement("select");
+    selectEl.setAttribute("data-testid", "select");
     let option;
     const inputData = "All,Completed,Outstanding";
     inputData.split(",").forEach((item) => {
