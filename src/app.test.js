@@ -165,11 +165,31 @@ test("shows completed todos when filter is set to Completed", () => {
   });
 });
 
-/**
- * - add 2 todos
- * - mark first as completed
- * - select filer Outstanding
- * - check list to show just outstanding (not completed) todo
- * - check list not to show completed todo
- */
-test.todo("shows outstanding todos when filter is set to Outstanding");
+test("shows outstanding todos when filter is set to Outstanding", () => {
+  // setup
+  const todoList = screen.getByTestId("todo-list");
+  addTodo("Take wife for a walk!");
+  const completeButton = getByText(todoList, "Mark");
+  userEvent.click(completeButton);
+  addTodo("Take dog for a walk!");
+
+  // act
+  userEvent.selectOptions(
+    screen.getByTestId("select"),
+    screen.getByText("Outstanding")
+  );
+
+  // assert
+  expect(screen.getByTestId("outstanding").selected).toBe(true);
+
+  expect(
+    queryByDisplayValue(todoList, "Take wife for a walk!").parentElement
+  ).toHaveStyle({
+    display: "none",
+  });
+  expect(
+    queryByDisplayValue(todoList, "Take dog for a walk!").parentElement
+  ).toHaveStyle({
+    display: "flex",
+  });
+});
