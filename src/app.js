@@ -27,14 +27,14 @@ const createHeading = (headingSize, className, innerText) => {
   return heading;
 };
 
-export default function createApp(rootElement) {
-  const createHeader = () => {
-    const header = document.createElement("header");
-    const headingOne = createHeading("h1", "header", "Todo App");
-    header.appendChild(headingOne);
-    return header;
-  };
+const createHeader = () => {
+  const header = document.createElement("header");
+  const headingOne = createHeading("h1", "header", "Todo App");
+  header.appendChild(headingOne);
+  return header;
+};
 
+export default function createApp(rootElement) {
   const createForm = () => {
     const form = document.createElement("form");
     return form;
