@@ -53,7 +53,7 @@ export const createTodoList = () => {
   return el;
 };
 
-export const createTodoEl = (id) => {
+export const createTodoElement = (id) => {
   const el = document.createElement("li");
   el.classList.add("todo");
   el.setAttribute("id", id);

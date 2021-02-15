@@ -11,7 +11,7 @@ import {
   createHeading,
   createInput,
   createTextElement,
-  createTodoEl,
+  createTodoElement,
   createTodoList,
 } from "./elements";
 
@@ -68,7 +68,7 @@ export default function createApp(rootElement) {
   };
 
   const render = (todoItem) => {
-    const todoEl = createTodoEl(todoItem.id);
+    const todoEl = createTodoElement(todoItem.id);
 
     const textElement = createTextElement(todoItem.text);
     todoEl.appendChild(textElement);
