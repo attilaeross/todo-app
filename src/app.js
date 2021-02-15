@@ -62,14 +62,14 @@ const createFilterElement = () => {
   return selectEl;
 };
 
-export default function createApp(rootElement) {
-  const createTodoList = () => {
-    const ulEl = document.createElement("ul");
-    ulEl.classList.add("list");
-    ulEl.setAttribute("data-testid", "todo-list");
-    return ulEl;
-  };
+const createTodoList = () => {
+  const ulEl = document.createElement("ul");
+  ulEl.classList.add("list");
+  ulEl.setAttribute("data-testid", "todo-list");
+  return ulEl;
+};
 
+export default function createApp(rootElement) {
   const changeUserBtn = createBtn("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
 
