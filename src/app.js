@@ -2,7 +2,7 @@
 // Getting Elements - selectors
 
 import {
-  createBtn,
+  createButton,
   createCommandButton,
   createCompleteButton,
   createDeleteButton,
@@ -11,7 +11,7 @@ import {
   createHeader,
   createHeading,
   createInput,
-  createTextEl,
+  createTextElement,
   createTodoEl,
   createTodoList,
 } from "./elements";
@@ -29,7 +29,7 @@ import {
  * */
 
 export default function createApp(rootElement) {
-  const changeUserBtn = createBtn("change-user", "Change User");
+  const changeUserBtn = createButton("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
 
   const header = createHeader();
@@ -40,7 +40,7 @@ export default function createApp(rootElement) {
   const inputElement = createInput();
   form.appendChild(inputElement);
 
-  const addButton = createBtn("add", "Add");
+  const addButton = createButton("add", "Add");
   form.appendChild(addButton);
 
   const filterOption = createFilterElement();
@@ -83,7 +83,7 @@ export default function createApp(rootElement) {
   const render = (todoItem) => {
     const todoEl = createTodoEl(todoItem.id);
 
-    const textElement = createTextEl(todoItem.text);
+    const textElement = createTextElement(todoItem.text);
     todoEl.appendChild(textElement);
 
     if (todoItem.isComplete === true) {
