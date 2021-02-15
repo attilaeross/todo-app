@@ -93,6 +93,28 @@ const createCompleteButton = (onClick) => {
   return button;
 };
 
+const createCommandButton = (textEl, saveTodoItem) => {
+  const button = document.createElement("button");
+  button.innerHTML = "Edit";
+  button.classList.add("edit");
+  button.addEventListener("click", () => {
+    if (button.innerHTML === "Edit") {
+      textEl.disabled = false;
+      textEl.focus();
+      button.innerHTML = "Save";
+      button.classList.remove("edit");
+      button.classList.add("save");
+    } else {
+      textEl.disabled = true;
+      saveTodoItem();
+      button.innerHTML = "Edit";
+      button.classList.remove("save");
+      button.classList.add("edit");
+    }
+  });
+  return button;
+};
+
 export default function createApp(rootElement) {
   const changeUserBtn = createBtn("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
@@ -143,28 +165,6 @@ export default function createApp(rootElement) {
   const update = (todoItem, todoEl) => {
     todoItem.text = todoEl.childNodes[0].value;
     todoItem.isComplete = todoEl.classList.contains("completed");
-  };
-
-  const createCommandButton = (textEl, saveTodoItem) => {
-    const button = document.createElement("button");
-    button.innerHTML = "Edit";
-    button.classList.add("edit");
-    button.addEventListener("click", () => {
-      if (button.innerHTML === "Edit") {
-        textEl.disabled = false;
-        textEl.focus();
-        button.innerHTML = "Save";
-        button.classList.remove("edit");
-        button.classList.add("save");
-      } else {
-        textEl.disabled = true;
-        saveTodoItem();
-        button.innerHTML = "Edit";
-        button.classList.remove("save");
-        button.classList.add("edit");
-      }
-    });
-    return button;
   };
 
   const createDeleteButton = (todoEl, removeTodoItem) => {
