@@ -20,14 +20,14 @@ const createBtn = (className, innerText) => {
   return button;
 };
 
-export default function createApp(rootElement) {
-  const createHeading = (headingSize, className, innerText) => {
-    const heading = document.createElement(headingSize);
-    heading.classList.add(className);
-    heading.innerHTML = innerText;
-    return heading;
-  };
+const createHeading = (headingSize, className, innerText) => {
+  const heading = document.createElement(headingSize);
+  heading.classList.add(className);
+  heading.innerHTML = innerText;
+  return heading;
+};
 
+export default function createApp(rootElement) {
   const createHeader = () => {
     const header = document.createElement("header");
     const headingOne = createHeading("h1", "header", "Todo App");
