@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign */
-// Getting Elements - selectors
 
 import {
-  createBtn,
+  createButton,
   createCommandButton,
   createCompleteButton,
   createDeleteButton,
@@ -11,25 +10,13 @@ import {
   createHeader,
   createHeading,
   createInput,
-  createTextEl,
+  createTextElement,
   createTodoEl,
   createTodoList,
 } from "./elements";
 
-/**
- * TODO:
- * - create all elements dynamically from JS
- * - leave only a single <div id="root"/> in html
- * - wrap all the functionality in this module in a single function e.g. "createApp(root)"
- * - add a new dev.js module where we can use the new `createApp()` function
- * - call `createApp()` with the root DOM node
- *
- * In the test file we will be able to import the same `createApp()` function
- * to create our application then find elements and interact with it.
- * */
-
 export default function createApp(rootElement) {
-  const changeUserBtn = createBtn("change-user", "Change User");
+  const changeUserBtn = createButton("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
 
   const header = createHeader();
@@ -40,7 +27,7 @@ export default function createApp(rootElement) {
   const inputElement = createInput();
   form.appendChild(inputElement);
 
-  const addButton = createBtn("add", "Add");
+  const addButton = createButton("add", "Add");
   form.appendChild(addButton);
 
   const filterOption = createFilterElement();
@@ -83,7 +70,7 @@ export default function createApp(rootElement) {
   const render = (todoItem) => {
     const todoEl = createTodoEl(todoItem.id);
 
-    const textElement = createTextEl(todoItem.text);
+    const textElement = createTextElement(todoItem.text);
     todoEl.appendChild(textElement);
 
     if (todoItem.isComplete === true) {
