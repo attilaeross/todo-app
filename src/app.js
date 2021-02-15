@@ -85,6 +85,14 @@ const createTextEl = (text) => {
   return textEl;
 };
 
+const createCompleteButton = (onClick) => {
+  const button = document.createElement("button");
+  button.innerHTML = "Mark";
+  button.classList.add("complete");
+  button.addEventListener("click", onClick);
+  return button;
+};
+
 export default function createApp(rootElement) {
   const changeUserBtn = createBtn("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
@@ -135,14 +143,6 @@ export default function createApp(rootElement) {
   const update = (todoItem, todoEl) => {
     todoItem.text = todoEl.childNodes[0].value;
     todoItem.isComplete = todoEl.classList.contains("completed");
-  };
-
-  const createCompleteButton = (onClick) => {
-    const button = document.createElement("button");
-    button.innerHTML = "Mark";
-    button.classList.add("complete");
-    button.addEventListener("click", onClick);
-    return button;
   };
 
   const createCommandButton = (textEl, saveTodoItem) => {
