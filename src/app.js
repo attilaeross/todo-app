@@ -115,6 +115,17 @@ const createCommandButton = (textEl, saveTodoItem) => {
   return button;
 };
 
+const createDeleteButton = (todoEl, removeTodoItem) => {
+  const button = document.createElement("button");
+  button.innerHTML = "Delete";
+  button.classList.add("delete");
+  button.addEventListener("click", () => {
+    removeTodoItem();
+    todoEl.remove();
+  });
+  return button;
+};
+
 export default function createApp(rootElement) {
   const changeUserBtn = createBtn("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
@@ -165,17 +176,6 @@ export default function createApp(rootElement) {
   const update = (todoItem, todoEl) => {
     todoItem.text = todoEl.childNodes[0].value;
     todoItem.isComplete = todoEl.classList.contains("completed");
-  };
-
-  const createDeleteButton = (todoEl, removeTodoItem) => {
-    const button = document.createElement("button");
-    button.innerHTML = "Delete";
-    button.classList.add("delete");
-    button.addEventListener("click", () => {
-      removeTodoItem();
-      todoEl.remove();
-    });
-    return button;
   };
 
   const render = (todoItem) => {
