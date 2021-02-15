@@ -69,6 +69,13 @@ const createTodoList = () => {
   return ulEl;
 };
 
+const createTodoEl = (id) => {
+  const li = document.createElement("li");
+  li.classList.add("todo");
+  li.setAttribute("id", id);
+  return li;
+};
+
 export default function createApp(rootElement) {
   const changeUserBtn = createBtn("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
@@ -119,13 +126,6 @@ export default function createApp(rootElement) {
   const update = (todoItem, todoEl) => {
     todoItem.text = todoEl.childNodes[0].value;
     todoItem.isComplete = todoEl.classList.contains("completed");
-  };
-
-  const createTodoEl = (id) => {
-    const li = document.createElement("li");
-    li.classList.add("todo");
-    li.setAttribute("id", id);
-    return li;
   };
 
   const createTextEl = (text) => {
