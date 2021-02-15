@@ -181,3 +181,17 @@ test("shows outstanding todos when filter is set to Outstanding", () => {
   ).not.toBeVisible();
   expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
 });
+
+/**
+ * SETUP
+ * render todo app
+ * input user name
+ * add few todos
+ * destroy todo app
+ * ACT
+ * re render todo app
+ * input same user name
+ * ASSERT
+ * see previously added todos rendered
+ */
+test.todo("renders todo list for existing user");
