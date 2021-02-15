@@ -27,13 +27,17 @@ afterEach(() => {
   tearDown();
 });
 
-const addTodo = (text) => {
+const addTodo = (todoList, text, completed) => {
   const input = screen.getByPlaceholderText("Please enter todo here");
   const addButton = screen.getByText("Add");
 
-  // act
   userEvent.type(input, text);
   userEvent.click(addButton);
+
+  if (completed === true) {
+    const completeButton = getByText(todoList, "Mark");
+    userEvent.click(completeButton);
+  }
 };
 
 test("renders empty todo list when starts", () => {
@@ -46,10 +50,10 @@ test("renders empty todo list when starts", () => {
 
 test("shows new item in todo list when added", () => {
   // act
-  addTodo("Take wife for a walk!");
+  const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Take wife for a walk!");
 
   // assert
-  const todoList = screen.getByTestId("todo-list");
   expect(
     getByDisplayValue(todoList, "Take wife for a walk!")
   ).toBeInTheDocument();
@@ -57,10 +61,10 @@ test("shows new item in todo list when added", () => {
 
 test("removes an item from todo List when user clicks Delete button", () => {
   // setup
-  addTodo("Take wife for a walk!");
+  const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Take wife for a walk!");
 
   // act
-  const todoList = screen.getByTestId("todo-list");
   const deleteButton = getByText(todoList, "Delete");
   userEvent.click(deleteButton);
 
@@ -72,10 +76,10 @@ test("removes an item from todo List when user clicks Delete button", () => {
 
 test("marks an item as completed when user clicks Complete button", () => {
   // setup
-  addTodo("Take wife for a walk!");
+  const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Take wife for a walk!");
 
   // act
-  const todoList = screen.getByTestId("todo-list");
   const completeButton = getByText(todoList, "Mark");
   userEvent.click(completeButton);
 
@@ -86,8 +90,8 @@ test("marks an item as completed when user clicks Complete button", () => {
 
 test("allows user to edit todo item", () => {
   // setup
-  addTodo("Take wife for a walk!");
   const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Take wife for a walk!");
 
   // act
 
@@ -119,30 +123,26 @@ test("allows user to edit todo item", () => {
 test("shows all todos by default", () => {
   // setup
   const todoList = screen.getByTestId("todo-list");
-  addTodo("Take wife for a walk!");
+  addTodo(todoList, "Take wife for a walk!");
   const completeButton = getByText(todoList, "Mark");
   userEvent.click(completeButton);
-  addTodo("Take dog for a walk!");
+  addTodo(todoList, "Take dog for a walk!");
 
   // act
 
   // assert
   expect(screen.getByTestId("all").selected).toBe(true);
-  expect(
-    queryByDisplayValue(todoList, "Take wife for a walk!")
-  ).toBeInTheDocument();
-  expect(
-    queryByDisplayValue(todoList, "Take dog for a walk!")
-  ).toBeInTheDocument();
+  expect(queryByDisplayValue(todoList, "Take wife for a walk!")).toBeVisible();
+  expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
 });
 
 test("shows completed todos when filter is set to Completed", () => {
   // setup
   const todoList = screen.getByTestId("todo-list");
-  addTodo("Take wife for a walk!");
+  addTodo(todoList, "Take wife for a walk!");
   const completeButton = getByText(todoList, "Mark");
   userEvent.click(completeButton);
-  addTodo("Take dog for a walk!");
+  addTodo(todoList, "Take dog for a walk!");
 
   // act
   userEvent.selectOptions(
@@ -162,10 +162,8 @@ test("shows completed todos when filter is set to Completed", () => {
 test("shows outstanding todos when filter is set to Outstanding", () => {
   // setup
   const todoList = screen.getByTestId("todo-list");
-  addTodo("Take wife for a walk!");
-  const completeButton = getByText(todoList, "Mark");
-  userEvent.click(completeButton);
-  addTodo("Take dog for a walk!");
+  addTodo(todoList, "Take wife for a walk!", true);
+  addTodo(todoList, "Take dog for a walk!");
 
   // act
   userEvent.selectOptions(
