@@ -47,22 +47,22 @@ const createInput = () => {
   return inputElement;
 };
 
-export default function createApp(rootElement) {
-  const createFilterElement = () => {
-    const selectEl = document.createElement("select");
-    selectEl.setAttribute("data-testid", "select");
-    let option;
-    const inputData = "All,Completed,Outstanding";
-    inputData.split(",").forEach((item) => {
-      option = document.createElement("option");
-      option.value = item.toLowerCase();
-      option.setAttribute("data-testid", item.toLowerCase());
-      option.innerHTML = item;
-      selectEl.appendChild(option);
-    });
-    return selectEl;
-  };
+const createFilterElement = () => {
+  const selectEl = document.createElement("select");
+  selectEl.setAttribute("data-testid", "select");
+  let option;
+  const inputData = "All,Completed,Outstanding";
+  inputData.split(",").forEach((item) => {
+    option = document.createElement("option");
+    option.value = item.toLowerCase();
+    option.setAttribute("data-testid", item.toLowerCase());
+    option.innerHTML = item;
+    selectEl.appendChild(option);
+  });
+  return selectEl;
+};
 
+export default function createApp(rootElement) {
   const createTodoList = () => {
     const ulEl = document.createElement("ul");
     ulEl.classList.add("list");
