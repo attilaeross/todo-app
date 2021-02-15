@@ -34,12 +34,12 @@ const createHeader = () => {
   return header;
 };
 
-export default function createApp(rootElement) {
-  const createForm = () => {
-    const form = document.createElement("form");
-    return form;
-  };
+const createForm = () => {
+  const form = document.createElement("form");
+  return form;
+};
 
+export default function createApp(rootElement) {
   const createInput = () => {
     const inputElement = document.createElement("input");
     inputElement.type = "text";
