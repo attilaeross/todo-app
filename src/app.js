@@ -50,11 +50,13 @@ export default function createApp(rootElement) {
 
   const createFilterElement = () => {
     const selectEl = document.createElement("select");
+    selectEl.setAttribute("data-testid", "select");
     let option;
-    const inputData = "All,completed,Outstanding";
+    const inputData = "All,Completed,Outstanding";
     inputData.split(",").forEach((item) => {
       option = document.createElement("option");
       option.value = item.toLowerCase();
+      option.setAttribute("data-testid", item.toLowerCase());
       option.innerHTML = item;
       selectEl.appendChild(option);
     });
@@ -62,12 +64,10 @@ export default function createApp(rootElement) {
   };
 
   const createTodoList = () => {
-    const divEl = document.createElement("div");
-    divEl.classList.add("container");
     const ulEl = document.createElement("ul");
     ulEl.classList.add("list");
-    divEl.appendChild(ulEl);
-    return divEl;
+    ulEl.setAttribute("data-testid", "todo-list");
+    return ulEl;
   };
 
   const changeUserBtn = createBtn("change-user", "Change User");
@@ -117,7 +117,7 @@ export default function createApp(rootElement) {
   };
 
   const update = (todoItem, todoEl) => {
-    todoItem.text = todoEl.childNodes[0].innerHTML;
+    todoItem.text = todoEl.childNodes[0].value;
     todoItem.isComplete = todoEl.classList.contains("completed");
   };
 
@@ -129,21 +129,19 @@ export default function createApp(rootElement) {
   };
 
   const createTextEl = (text) => {
-    const p = document.createElement("p");
-    p.classList.add("todo-text");
-    p.innerHTML = text;
-    return p;
+    const textEl = document.createElement("input");
+    textEl.type = "text";
+    textEl.disabled = true;
+    textEl.classList.add("todo-text");
+    textEl.value = text;
+    return textEl;
   };
 
-  const createCompleteButton = (todoEl, editButton, saveTodoItem) => {
+  const createCompleteButton = (onClick) => {
     const button = document.createElement("button");
     button.innerHTML = "Mark";
     button.classList.add("complete");
-    button.addEventListener("click", () => {
-      todoEl.classList.toggle("completed");
-      editButton.disabled = todoEl.classList.contains("completed");
-      saveTodoItem();
-    });
+    button.addEventListener("click", onClick);
     return button;
   };
 
@@ -153,13 +151,13 @@ export default function createApp(rootElement) {
     button.classList.add("edit");
     button.addEventListener("click", () => {
       if (button.innerHTML === "Edit") {
-        textEl.contentEditable = true;
+        textEl.disabled = false;
         textEl.focus();
         button.innerHTML = "Save";
         button.classList.remove("edit");
         button.classList.add("save");
       } else {
-        textEl.contentEditable = false;
+        textEl.disabled = true;
         saveTodoItem();
         button.innerHTML = "Edit";
         button.classList.remove("save");
@@ -183,12 +181,13 @@ export default function createApp(rootElement) {
   const render = (todoItem) => {
     const todoEl = createTodoEl(todoItem.id);
 
-    if (todoItem.isComplete === true) {
-      todoEl.classList.toggle("completed");
-    }
-
     const textElement = createTextEl(todoItem.text);
     todoEl.appendChild(textElement);
+
+    if (todoItem.isComplete === true) {
+      todoEl.classList.toggle("completed");
+      textElement.classList.toggle("completed");
+    }
 
     const editButton = createCommandButton(textElement, () => {
       update(todoItem, todoEl);
@@ -196,10 +195,19 @@ export default function createApp(rootElement) {
     });
     todoEl.appendChild(editButton);
 
-    const completeButton = createCompleteButton(todoEl, editButton, () => {
+    const saveTodoItem = () => {
       update(todoItem, todoEl);
       persist(todoItems);
-    });
+    };
+
+    const onCompleteButtonClick = () => {
+      todoEl.classList.toggle("completed");
+      textElement.classList.toggle("completed");
+      editButton.disabled = todoEl.classList.contains("completed");
+      saveTodoItem();
+    };
+
+    const completeButton = createCompleteButton(onCompleteButtonClick);
     todoEl.appendChild(completeButton);
 
     const deleteButton = createDeleteButton(todoEl, () => {
@@ -282,4 +290,10 @@ export default function createApp(rootElement) {
   changeUserBtn.addEventListener("click", setUser);
 
   document.addEventListener("DOMContentLoaded", setUser);
+
+  const destroy = () => {
+    document.removeEventListener("DOMContentLoaded", setUser);
+  };
+
+  return destroy;
 }

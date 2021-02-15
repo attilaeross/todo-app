@@ -33,8 +33,7 @@ form select {
   transition: all 0.3s ease;
 }
 
-.container,
-h2 {
+h2.list-header {
   font-size: 15px;
   padding: 20px;
 }
@@ -63,7 +62,7 @@ h2 {
 .todo .todo-text {
   background: white;
   flex-grow: 1;
-  padding: 11px 20px;
+  padding: 1rem;
   border: 1px solid white;
   border-radius: 5px;
 }

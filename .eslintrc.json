@@ -8,12 +8,13 @@
     "airbnb-base",
     "prettier",
     "plugin:jest/recommended",
-    "plugin:jest/style"
+    "plugin:jest/style",
+    "plugin:jest-dom/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 12
   },
-  "plugins": ["jest"],
+  "plugins": ["jest", "jest-dom"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }]
   }
