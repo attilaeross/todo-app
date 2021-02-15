@@ -39,15 +39,15 @@ const createForm = () => {
   return form;
 };
 
-export default function createApp(rootElement) {
-  const createInput = () => {
-    const inputElement = document.createElement("input");
-    inputElement.type = "text";
-    inputElement.classList.add("new-todo");
-    inputElement.placeholder = "Please enter todo here";
-    return inputElement;
-  };
+const createInput = () => {
+  const inputElement = document.createElement("input");
+  inputElement.type = "text";
+  inputElement.classList.add("new-todo");
+  inputElement.placeholder = "Please enter todo here";
+  return inputElement;
+};
 
+export default function createApp(rootElement) {
   const createFilterElement = () => {
     const selectEl = document.createElement("select");
     selectEl.setAttribute("data-testid", "select");
