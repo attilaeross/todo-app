@@ -13,14 +13,14 @@
  * to create our application then find elements and interact with it.
  * */
 
-export default function createApp(rootElement) {
-  const createBtn = (className, innerText) => {
-    const button = document.createElement("button");
-    button.classList.add(className);
-    button.innerHTML = innerText;
-    return button;
-  };
+const createBtn = (className, innerText) => {
+  const button = document.createElement("button");
+  button.classList.add(className);
+  button.innerHTML = innerText;
+  return button;
+};
 
+export default function createApp(rootElement) {
   const createHeading = (headingSize, className, innerText) => {
     const heading = document.createElement(headingSize);
     heading.classList.add(className);
