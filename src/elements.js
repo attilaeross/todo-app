@@ -29,11 +29,9 @@ export const createInput = (placeholderText) => {
   return el;
 };
 
-export const createFilterElement = () => {
+export const createFilterElement = (selectOptions) => {
   const select = document.createElement("select");
   select.setAttribute("data-testid", "select");
-  // TODO: extract input Data - pass it as parameter
-  const selectOptions = ["All", "Completed", "Outstanding"];
   const options = selectOptions.map((option) => {
     const el = document.createElement("option");
     el.value = option.toLowerCase();
