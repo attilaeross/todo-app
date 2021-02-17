@@ -84,11 +84,8 @@ export const createCompleteButton = (onClick) => {
   return el;
 };
 
-// consider using createButton to remove duplication
 export const createCommandButton = (textEl, saveTodoItem) => {
-  const button = document.createElement("button");
-  button.innerHTML = "Edit";
-  button.classList.add("edit");
+  const button = createButton("edit", "Edit");
   button.addEventListener("click", () => {
     if (button.innerHTML === "Edit") {
       textEl.disabled = false;
