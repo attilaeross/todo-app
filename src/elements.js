@@ -7,11 +7,10 @@ export const createButton = (className, text) => {
   return el;
 };
 
-// todo : use shortest possible function argument names
-export const createHeading = (headingSize, className, innerText) => {
-  const el = document.createElement(headingSize);
+export const createHeading = (size, className, text) => {
+  const el = document.createElement(size);
   el.classList.add(className);
-  el.innerHTML = innerText;
+  el.innerHTML = text;
   return el;
 };
 
