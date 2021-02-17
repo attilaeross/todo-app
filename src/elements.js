@@ -28,9 +28,7 @@ export const createInput = (placeholderText) => {
   el.placeholder = placeholderText;
   return el;
 };
-/**
- * remove duplication - toLowerCase();
- */
+
 export const createFilterElement = () => {
   const select = document.createElement("select");
   select.setAttribute("data-testid", "select");
@@ -39,7 +37,7 @@ export const createFilterElement = () => {
   const options = selectOptions.map((option) => {
     const el = document.createElement("option");
     el.value = option.toLowerCase();
-    el.setAttribute("data-testid", option.toLowerCase());
+    el.setAttribute("data-testid", el.value);
     el.innerHTML = option;
     return el;
   });
