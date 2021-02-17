@@ -29,7 +29,6 @@ export const createInput = (placeholderText) => {
   return el;
 };
 /**
- * input data - array
  * create options using map instead of foreach: input data --> option element
  * add options to select
  * remove duplication - toLowerCase();
@@ -38,8 +37,8 @@ export const createFilterElement = () => {
   const select = document.createElement("select");
   select.setAttribute("data-testid", "select");
   // TODO: extract input Data - pass it as parameter
-  const selectOptions = "All,Completed,Outstanding";
-  selectOptions.split(",").forEach((item) => {
+  const selectOptions = ["All", "Completed", "Outstanding"];
+  selectOptions.forEach((item) => {
     const option = document.createElement("option");
     option.value = item.toLowerCase();
     option.setAttribute("data-testid", item.toLowerCase());
