@@ -39,11 +39,11 @@ export const createFilterElement = () => {
   // TODO: extract input Data - pass it as parameter
   const selectOptions = ["All", "Completed", "Outstanding"];
   selectOptions.forEach((item) => {
-    const option = document.createElement("option");
-    option.value = item.toLowerCase();
-    option.setAttribute("data-testid", item.toLowerCase());
-    option.innerHTML = item;
-    select.appendChild(option);
+    const el = document.createElement("option");
+    el.value = item.toLowerCase();
+    el.setAttribute("data-testid", item.toLowerCase());
+    el.innerHTML = item;
+    select.appendChild(el);
   });
   return select;
 };
