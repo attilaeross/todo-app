@@ -29,8 +29,6 @@ export const createInput = (placeholderText) => {
   return el;
 };
 /**
- * create options using map instead of foreach: input data --> option element
- * add options to select
  * remove duplication - toLowerCase();
  */
 export const createFilterElement = () => {
@@ -38,13 +36,17 @@ export const createFilterElement = () => {
   select.setAttribute("data-testid", "select");
   // TODO: extract input Data - pass it as parameter
   const selectOptions = ["All", "Completed", "Outstanding"];
-  selectOptions.forEach((item) => {
+  const options = selectOptions.map((option) => {
     const el = document.createElement("option");
-    el.value = item.toLowerCase();
-    el.setAttribute("data-testid", item.toLowerCase());
-    el.innerHTML = item;
-    select.appendChild(el);
+    el.value = option.toLowerCase();
+    el.setAttribute("data-testid", option.toLowerCase());
+    el.innerHTML = option;
+    return el;
   });
+  options.forEach((option) => {
+    select.appendChild(option);
+  });
+
   return select;
 };
 
