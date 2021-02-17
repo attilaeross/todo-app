@@ -28,6 +28,7 @@ export default function createApp(rootElement) {
   form.appendChild(inputElement);
 
   const addButton = createButton("add", "Add");
+  // const addButton = createButton({ className: "add", text: "Add" });
   form.appendChild(addButton);
 
   const filterOption = createFilterElement();

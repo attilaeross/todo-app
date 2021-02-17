@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 
+// rename innerText to text
 export const createButton = (className, innerText) => {
   const el = document.createElement("button");
   el.classList.add(className);
@@ -7,6 +8,7 @@ export const createButton = (className, innerText) => {
   return el;
 };
 
+// todo : use shortest possible function argument names
 export const createHeading = (headingSize, className, innerText) => {
   const el = document.createElement(headingSize);
   el.classList.add(className);
@@ -16,6 +18,7 @@ export const createHeading = (headingSize, className, innerText) => {
 
 export const createHeader = () => {
   const el = document.createElement("header");
+  // move to createApp
   const headingOne = createHeading("h1", "header", "Todo App");
   el.appendChild(headingOne);
   return el;
@@ -23,6 +26,7 @@ export const createHeader = () => {
 
 export const createForm = () => document.createElement("form");
 
+// placeholder to be a function argument
 export const createInput = () => {
   const el = document.createElement("input");
   el.type = "text";
@@ -30,7 +34,13 @@ export const createInput = () => {
   el.placeholder = "Please enter todo here";
   return el;
 };
-
+/**
+ * rename input data to something more meaningful
+ * input data - array
+ * create options using map instead of foreach: input data --> option element
+ * add options to select
+ * remove duplication - toLowerCase();
+ */
 export const createFilterElement = () => {
   const select = document.createElement("select");
   select.setAttribute("data-testid", "select");
@@ -46,6 +56,7 @@ export const createFilterElement = () => {
   return select;
 };
 
+// data-testid to be function argument
 export const createTodoList = () => {
   const el = document.createElement("ul");
   el.classList.add("list");
@@ -69,6 +80,8 @@ export const createTextElement = (text) => {
   return el;
 };
 
+// name to be a function argument
+// consider using createButton to remove duplication
 export const createCompleteButton = (onClick) => {
   const el = document.createElement("button");
   el.innerHTML = "Mark";
@@ -77,6 +90,7 @@ export const createCompleteButton = (onClick) => {
   return el;
 };
 
+// consider using createButton to remove duplication
 export const createCommandButton = (textEl, saveTodoItem) => {
   const button = document.createElement("button");
   button.innerHTML = "Edit";
@@ -99,6 +113,7 @@ export const createCommandButton = (textEl, saveTodoItem) => {
   return button;
 };
 
+// consider using createButton to remove duplication
 export const createDeleteButton = (todoEl, removeTodoItem) => {
   const el = document.createElement("button");
   el.innerHTML = "Delete";
