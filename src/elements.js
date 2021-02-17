@@ -100,11 +100,8 @@ export const createCommandButton = (textEl, saveTodoItem) => {
   return button;
 };
 
-// consider using createButton to remove duplication
 export const createDeleteButton = (todoEl, removeTodoItem) => {
-  const el = document.createElement("button");
-  el.innerHTML = "Delete";
-  el.classList.add("delete");
+  const el = createButton("delete", "Delete");
   el.addEventListener("click", () => {
     removeTodoItem();
     todoEl.remove();
