@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
 
-// rename innerText to text
-export const createButton = (className, innerText) => {
+export const createButton = (className, text) => {
   const el = document.createElement("button");
   el.classList.add(className);
-  el.innerHTML = innerText;
+  el.innerHTML = text;
   return el;
 };
 
