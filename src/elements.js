@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-export const createButton = (className, text) => {
+export const createButton = ({ className, text }) => {
   const el = document.createElement("button");
   el.classList.add(className);
   el.innerHTML = text;
@@ -75,13 +75,13 @@ export const createTextElement = (text) => {
 };
 
 export const createCompleteButton = (onClick) => {
-  const el = createButton("complete", "Mark");
+  const el = createButton({ className: "complete", text: "Mark" });
   el.addEventListener("click", onClick);
   return el;
 };
 
 export const createCommandButton = (textEl, saveTodoItem) => {
-  const button = createButton("edit", "Edit");
+  const button = createButton({ className: "edit", text: "Edit" });
   button.addEventListener("click", () => {
     if (button.innerHTML === "Edit") {
       textEl.disabled = false;
@@ -101,7 +101,7 @@ export const createCommandButton = (textEl, saveTodoItem) => {
 };
 
 export const createDeleteButton = (todoEl, removeTodoItem) => {
-  const el = createButton("delete", "Delete");
+  const el = createButton({ className: "delete", text: "Delete" });
   el.addEventListener("click", () => {
     removeTodoItem();
     todoEl.remove();
