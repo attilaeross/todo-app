@@ -74,12 +74,8 @@ export const createTextElement = (text) => {
   return el;
 };
 
-// name to be a function argument
-// consider using createButton to remove duplication
 export const createCompleteButton = (onClick) => {
-  const el = document.createElement("button");
-  el.innerHTML = "Mark";
-  el.classList.add("complete");
+  const el = createButton("complete", "Mark");
   el.addEventListener("click", onClick);
   return el;
 };
