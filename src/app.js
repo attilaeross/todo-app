@@ -13,10 +13,14 @@ import {
   createTextElement,
   createTodoElement,
   createTodoList,
-} from "./elements";
+  // eslint-disable-next-line
+} from "./elements.js";
 
 export default function createApp(rootElement) {
-  const changeUserBtn = createButton("change-user", "Change User");
+  const changeUserBtn = createButton({
+    className: "change-user",
+    text: "Change User",
+  });
   rootElement.appendChild(changeUserBtn);
 
   const heading = createHeading({
