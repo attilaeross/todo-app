@@ -19,7 +19,14 @@ export default function createApp(rootElement) {
   const changeUserBtn = createButton("change-user", "Change User");
   rootElement.appendChild(changeUserBtn);
 
+  const heading = createHeading({
+    size: "h1",
+    className: "header",
+    text: "Todo App",
+  });
+
   const header = createHeader();
+  header.appendChild(heading);
   rootElement.appendChild(header);
 
   const form = createForm();

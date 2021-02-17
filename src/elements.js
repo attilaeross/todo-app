@@ -7,7 +7,7 @@ export const createButton = (className, text) => {
   return el;
 };
 
-export const createHeading = (size, className, text) => {
+export const createHeading = ({ size, className, text }) => {
   const el = document.createElement(size);
   el.classList.add(className);
   el.innerHTML = text;
@@ -16,9 +16,6 @@ export const createHeading = (size, className, text) => {
 
 export const createHeader = () => {
   const el = document.createElement("header");
-  // move to createApp
-  const headingOne = createHeading("h1", "header", "Todo App");
-  el.appendChild(headingOne);
   return el;
 };
 
