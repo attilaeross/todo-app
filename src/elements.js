@@ -21,12 +21,11 @@ export const createHeader = () => {
 
 export const createForm = () => document.createElement("form");
 
-// placeholder to be a function argument
-export const createInput = () => {
+export const createInput = (placeholderText) => {
   const el = document.createElement("input");
   el.type = "text";
   el.classList.add("new-todo");
-  el.placeholder = "Please enter todo here";
+  el.placeholder = placeholderText;
   return el;
 };
 /**

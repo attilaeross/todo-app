@@ -31,7 +31,7 @@ export default function createApp(rootElement) {
 
   const form = createForm();
 
-  const inputElement = createInput();
+  const inputElement = createInput("Please enter todo here");
   form.appendChild(inputElement);
 
   const addButton = createButton("add", "Add");
