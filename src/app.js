@@ -5,7 +5,7 @@ import {
   createCommandButton,
   createCompleteButton,
   createDeleteButton,
-  createSelectElement,
+  createFilter,
   createForm,
   createHeader,
   createHeading,
@@ -13,7 +13,6 @@ import {
   createTextElement,
   createTodoElement,
   createTodoList,
-  createOptionElements,
   // eslint-disable-next-line
 } from "./elements.js";
 
@@ -42,10 +41,7 @@ export default function createApp(rootElement) {
   const addButton = createButton({ className: "add", text: "Add" });
   form.appendChild(addButton);
 
-  const selectOptions = ["All", "Completed", "Outstanding"];
-  const optionElements = createOptionElements(selectOptions);
-
-  const selectElement = createSelectElement(optionElements);
+  const selectElement = createFilter(["All", "Completed", "Outstanding"]);
   form.appendChild(selectElement);
 
   rootElement.appendChild(form);

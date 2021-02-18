@@ -25,23 +25,18 @@ export const createInput = (placeholder) => {
   el.placeholder = placeholder;
   return el;
 };
-
-export const createOptionElements = (selectOptions) => {
-  const optionsEl = selectOptions.map((option) => {
-    const el = document.createElement("option");
-    el.value = option.toLowerCase();
-    el.setAttribute("data-testid", el.value);
-    el.innerHTML = option;
-    return el;
-  });
-  return optionsEl;
+const createOptionElement = (option) => {
+  const el = document.createElement("option");
+  el.value = option.toLowerCase();
+  el.setAttribute("data-testid", el.value);
+  el.innerHTML = option;
+  return el;
 };
 
-export const createSelectElement = (optionEl) => {
+export const createFilter = (options) => {
   const select = document.createElement("select");
   select.setAttribute("data-testid", "select");
-
-  optionEl.forEach((option) => {
+  options.map(createOptionElement).forEach((option) => {
     select.appendChild(option);
   });
 
