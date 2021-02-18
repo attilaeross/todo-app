@@ -21,11 +21,11 @@ export const createHeader = () => {
 
 export const createForm = () => document.createElement("form");
 
-export const createInput = (placeholderText) => {
+export const createInput = (placeholder) => {
   const el = document.createElement("input");
   el.type = "text";
   el.classList.add("new-todo");
-  el.placeholder = placeholderText;
+  el.placeholder = placeholder;
   return el;
 };
 
