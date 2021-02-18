@@ -1,51 +1,49 @@
 /* eslint-disable no-param-reassign */
 
-export const createButton = (className, innerText) => {
+export const createButton = ({ className, text }) => {
   const el = document.createElement("button");
   el.classList.add(className);
-  el.innerHTML = innerText;
+  el.innerHTML = text;
   return el;
 };
 
-export const createHeading = (headingSize, className, innerText) => {
-  const el = document.createElement(headingSize);
+export const createHeading = ({ size, className, text }) => {
+  const el = document.createElement(size);
   el.classList.add(className);
-  el.innerHTML = innerText;
+  el.innerHTML = text;
   return el;
 };
 
-export const createHeader = () => {
-  const el = document.createElement("header");
-  const headingOne = createHeading("h1", "header", "Todo App");
-  el.appendChild(headingOne);
-  return el;
-};
+export const createHeader = () => document.createElement("header");
 
 export const createForm = () => document.createElement("form");
 
-export const createInput = () => {
+export const createInput = (placeholder) => {
   const el = document.createElement("input");
   el.type = "text";
   el.classList.add("new-todo");
-  el.placeholder = "Please enter todo here";
+  el.placeholder = placeholder;
+  return el;
+};
+const createOptionElement = (option) => {
+  const el = document.createElement("option");
+  el.value = option.toLowerCase();
+  el.setAttribute("data-testid", el.value);
+  el.innerHTML = option;
   return el;
 };
 
-export const createFilterElement = () => {
+export const createFilter = (options) => {
   const select = document.createElement("select");
   select.setAttribute("data-testid", "select");
-  // TODO: extract input Data - pass it as parameter
-  const inputData = "All,Completed,Outstanding";
-  inputData.split(",").forEach((item) => {
-    const option = document.createElement("option");
-    option.value = item.toLowerCase();
-    option.setAttribute("data-testid", item.toLowerCase());
-    option.innerHTML = item;
+  options.map(createOptionElement).forEach((option) => {
     select.appendChild(option);
   });
+
   return select;
 };
 
+// data-testid to be function argument
 export const createTodoList = () => {
   const el = document.createElement("ul");
   el.classList.add("list");
@@ -53,7 +51,7 @@ export const createTodoList = () => {
   return el;
 };
 
-export const createTodoEl = (id) => {
+export const createTodoElement = (id) => {
   const el = document.createElement("li");
   el.classList.add("todo");
   el.setAttribute("id", id);
@@ -70,17 +68,13 @@ export const createTextElement = (text) => {
 };
 
 export const createCompleteButton = (onClick) => {
-  const el = document.createElement("button");
-  el.innerHTML = "Mark";
-  el.classList.add("complete");
+  const el = createButton({ className: "complete", text: "Mark" });
   el.addEventListener("click", onClick);
   return el;
 };
 
 export const createCommandButton = (textEl, saveTodoItem) => {
-  const button = document.createElement("button");
-  button.innerHTML = "Edit";
-  button.classList.add("edit");
+  const button = createButton({ className: "edit", text: "Edit" });
   button.addEventListener("click", () => {
     if (button.innerHTML === "Edit") {
       textEl.disabled = false;
@@ -100,9 +94,7 @@ export const createCommandButton = (textEl, saveTodoItem) => {
 };
 
 export const createDeleteButton = (todoEl, removeTodoItem) => {
-  const el = document.createElement("button");
-  el.innerHTML = "Delete";
-  el.classList.add("delete");
+  const el = createButton({ className: "delete", text: "Delete" });
   el.addEventListener("click", () => {
     removeTodoItem();
     todoEl.remove();

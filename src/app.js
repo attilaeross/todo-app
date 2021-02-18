@@ -1,50 +1,48 @@
 /* eslint-disable no-param-reassign */
-// Getting Elements - selectors
 
 import {
   createButton,
   createCommandButton,
   createCompleteButton,
   createDeleteButton,
-  createFilterElement,
+  createFilter,
   createForm,
   createHeader,
   createHeading,
   createInput,
   createTextElement,
-  createTodoEl,
+  createTodoElement,
   createTodoList,
-} from "./elements";
-
-/**
- * TODO:
- * - create all elements dynamically from JS
- * - leave only a single <div id="root"/> in html
- * - wrap all the functionality in this module in a single function e.g. "createApp(root)"
- * - add a new dev.js module where we can use the new `createApp()` function
- * - call `createApp()` with the root DOM node
- *
- * In the test file we will be able to import the same `createApp()` function
- * to create our application then find elements and interact with it.
- * */
+  // eslint-disable-next-line
+} from "./elements.js";
 
 export default function createApp(rootElement) {
-  const changeUserBtn = createButton("change-user", "Change User");
+  const changeUserBtn = createButton({
+    className: "change-user",
+    text: "Change User",
+  });
   rootElement.appendChild(changeUserBtn);
 
+  const heading = createHeading({
+    size: "h1",
+    className: "header",
+    text: "Todo App",
+  });
+
   const header = createHeader();
+  header.appendChild(heading);
   rootElement.appendChild(header);
 
   const form = createForm();
 
-  const inputElement = createInput();
+  const inputElement = createInput("Please enter todo here");
   form.appendChild(inputElement);
 
-  const addButton = createButton("add", "Add");
+  const addButton = createButton({ className: "add", text: "Add" });
   form.appendChild(addButton);
 
-  const filterOption = createFilterElement();
-  form.appendChild(filterOption);
+  const selectElement = createFilter(["All", "Completed", "Outstanding"]);
+  form.appendChild(selectElement);
 
   rootElement.appendChild(form);
 
@@ -81,7 +79,7 @@ export default function createApp(rootElement) {
   };
 
   const render = (todoItem) => {
-    const todoEl = createTodoEl(todoItem.id);
+    const todoEl = createTodoElement(todoItem.id);
 
     const textElement = createTextElement(todoItem.text);
     todoEl.appendChild(textElement);
@@ -169,7 +167,7 @@ export default function createApp(rootElement) {
     textInput.value = "";
   });
 
-  filterOption.addEventListener("change", (event) => {
+  selectElement.addEventListener("change", (event) => {
     const todos = todoList.childNodes;
     const { value: filter } = event.target;
     todos.forEach((todo) => {
