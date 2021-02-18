@@ -13,6 +13,7 @@ import {
   createTextElement,
   createTodoElement,
   createTodoList,
+  createOptionElements,
   // eslint-disable-next-line
 } from "./elements.js";
 
@@ -42,8 +43,10 @@ export default function createApp(rootElement) {
   form.appendChild(addButton);
 
   const selectOptions = ["All", "Completed", "Outstanding"];
-  const filterOption = createSelectElement(selectOptions);
-  form.appendChild(filterOption);
+  const optionElements = createOptionElements(selectOptions);
+
+  const selectElement = createSelectElement(optionElements);
+  form.appendChild(selectElement);
 
   rootElement.appendChild(form);
 
@@ -168,7 +171,7 @@ export default function createApp(rootElement) {
     textInput.value = "";
   });
 
-  filterOption.addEventListener("change", (event) => {
+  selectElement.addEventListener("change", (event) => {
     const todos = todoList.childNodes;
     const { value: filter } = event.target;
     todos.forEach((todo) => {

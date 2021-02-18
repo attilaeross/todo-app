@@ -29,17 +29,22 @@ export const createInput = (placeholder) => {
   return el;
 };
 
-export const createSelectElement = (selectOptions) => {
-  const select = document.createElement("select");
-  select.setAttribute("data-testid", "select");
-  const options = selectOptions.map((option) => {
+export const createOptionElements = (selectOptions) => {
+  const optionsEl = selectOptions.map((option) => {
     const el = document.createElement("option");
     el.value = option.toLowerCase();
     el.setAttribute("data-testid", el.value);
     el.innerHTML = option;
     return el;
   });
-  options.forEach((option) => {
+  return optionsEl;
+};
+
+export const createSelectElement = (optionEl) => {
+  const select = document.createElement("select");
+  select.setAttribute("data-testid", "select");
+
+  optionEl.forEach((option) => {
     select.appendChild(option);
   });
 
