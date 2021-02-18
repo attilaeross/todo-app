@@ -29,7 +29,7 @@ export const createInput = (placeholder) => {
   return el;
 };
 
-export const createFilterElement = (selectOptions) => {
+export const createSelectElement = (selectOptions) => {
   const select = document.createElement("select");
   select.setAttribute("data-testid", "select");
   const options = selectOptions.map((option) => {

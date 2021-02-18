@@ -5,7 +5,7 @@ import {
   createCommandButton,
   createCompleteButton,
   createDeleteButton,
-  createFilterElement,
+  createSelectElement,
   createForm,
   createHeader,
   createHeading,
@@ -42,7 +42,7 @@ export default function createApp(rootElement) {
   form.appendChild(addButton);
 
   const selectOptions = ["All", "Completed", "Outstanding"];
-  const filterOption = createFilterElement(selectOptions);
+  const filterOption = createSelectElement(selectOptions);
   form.appendChild(filterOption);
 
   rootElement.appendChild(form);
