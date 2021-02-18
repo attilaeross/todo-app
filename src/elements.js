@@ -14,10 +14,7 @@ export const createHeading = ({ size, className, text }) => {
   return el;
 };
 
-export const createHeader = () => {
-  const el = document.createElement("header");
-  return el;
-};
+export const createHeader = () => document.createElement("header");
 
 export const createForm = () => document.createElement("form");
 
