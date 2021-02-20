@@ -62,14 +62,15 @@ export default function createApp(rootElement) {
   rootElement.appendChild(todoList);
 
   let todoItems = [];
+  let userName;
 
-  const storageKey = (userName) => `${userName}Todos`;
+  const storageKey = () => `${userName}Todos`;
 
-  const getStoredTodos = (userName) => {
-    if (localStorage.getItem(storageKey(userName)) === null) {
+  const getStoredTodos = () => {
+    if (localStorage.getItem(storageKey()) === null) {
       return [];
     }
-    return JSON.parse(localStorage.getItem(storageKey(userName)));
+    return JSON.parse(localStorage.getItem(storageKey()));
   };
 
   const persist = (todoItem) => {
@@ -138,17 +139,14 @@ export default function createApp(rootElement) {
     });
   };
 
-  const setUserTodos = (userName) => {
-    listHeader.innerHTML = `Todo list for ${userName}`;
-    todoItems = getStoredTodos(userName);
+  const setUserTodos = () => {
+    todoItems = getStoredTodos();
     removeAllTodoElements();
     renderAll(todoItems);
   };
 
   const setUser = () => {
-    const userName = document.querySelector("input.user-input").value;
-    document.querySelector("input.user-input").value = "";
-    return userName;
+    userName = document.querySelector("input.user-input").value;
   };
 
   addButton.addEventListener("click", (event) => {
@@ -190,8 +188,10 @@ export default function createApp(rootElement) {
   });
 
   setUserBtn.addEventListener("click", () => {
-    const userName = setUser();
-    setUserTodos(userName);
+    setUser();
+    listHeader.innerHTML = `Todo list for ${userName}`;
+    setUserTodos();
+    document.querySelector("input.user-input").value = "";
   });
 
   const destroy = () => {
