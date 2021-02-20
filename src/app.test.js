@@ -114,12 +114,6 @@ test("allows user to edit todo item", () => {
   ).toBeInTheDocument();
 });
 
-/**
- * - add 2 todos
- * - mark first as completed
- * - check if filter option is all?
- * - check if both todos show in list
- */
 test("shows all todos by default", () => {
   // setup
   const todoList = screen.getByTestId("todo-list");
