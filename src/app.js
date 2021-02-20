@@ -17,11 +17,17 @@ import {
 } from "./elements.js";
 
 export default function createApp(rootElement) {
-  const changeUserBtn = createButton({
-    className: "change-user",
-    text: "Change User",
+  const userInput = createInput({
+    placeholder: "Please enter username",
+    className: "user-input",
   });
-  rootElement.appendChild(changeUserBtn);
+  rootElement.appendChild(userInput);
+
+  const setUserBtn = createButton({
+    className: "change-user",
+    text: "Set User",
+  });
+  rootElement.appendChild(setUserBtn);
 
   const heading = createHeading({
     size: "h1",
@@ -55,17 +61,15 @@ export default function createApp(rootElement) {
   const todoList = createTodoList();
   rootElement.appendChild(todoList);
 
-  // global variables
-  let userName;
   let todoItems = [];
 
-  const storageKey = () => `${userName}Todos`;
+  const storageKey = (userName) => `${userName}Todos`;
 
-  const getStoredTodos = () => {
-    if (localStorage.getItem(storageKey()) === null) {
+  const getStoredTodos = (userName) => {
+    if (localStorage.getItem(storageKey(userName)) === null) {
       return [];
     }
-    return JSON.parse(localStorage.getItem(storageKey()));
+    return JSON.parse(localStorage.getItem(storageKey(userName)));
   };
 
   const persist = (todoItem) => {
@@ -134,22 +138,17 @@ export default function createApp(rootElement) {
     });
   };
 
+  const setUserTodos = (userName) => {
+    listHeader.innerHTML = `Todo list for ${userName}`;
+    todoItems = getStoredTodos(userName);
+    removeAllTodoElements();
+    renderAll(todoItems);
+  };
+
   const setUser = () => {
-    // eslint-disable-next-line no-alert
-    const input = prompt("Please enter your name...");
-
-    if (!input) {
-      setUser();
-    } else {
-      userName = input.toLowerCase().trim();
-      todoItems = getStoredTodos(userName);
-
-      removeAllTodoElements();
-
-      renderAll(todoItems);
-
-      listHeader.innerHTML = `Todo list for ${input}`;
-    }
+    const userName = document.querySelector("input.user-input").value;
+    document.querySelector("input.user-input").value = "";
+    return userName;
   };
 
   addButton.addEventListener("click", (event) => {
@@ -190,9 +189,10 @@ export default function createApp(rootElement) {
     });
   });
 
-  changeUserBtn.addEventListener("click", setUser);
-
-  document.addEventListener("DOMContentLoaded", setUser);
+  setUserBtn.addEventListener("click", () => {
+    const userName = setUser();
+    setUserTodos(userName);
+  });
 
   const destroy = () => {
     document.removeEventListener("DOMContentLoaded", setUser);
