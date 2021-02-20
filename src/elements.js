@@ -18,10 +18,10 @@ export const createHeader = () => document.createElement("header");
 
 export const createForm = () => document.createElement("form");
 
-export const createInput = (placeholder) => {
+export const createInput = ({ placeholder, className }) => {
   const el = document.createElement("input");
   el.type = "text";
-  el.classList.add("new-todo");
+  el.classList.add(className);
   el.placeholder = placeholder;
   return el;
 };
