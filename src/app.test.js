@@ -59,7 +59,7 @@ test("wont allow to add new todo until user is not set", () => {
   ).not.toBeInTheDocument();
 });
 
-test("renders empty todo list when user is logged in", () => {
+test("renders empty todo list when new user is logs in", () => {
   // setup
   logInUser("Attila");
   const todoList = screen.getByTestId("todo-list");
