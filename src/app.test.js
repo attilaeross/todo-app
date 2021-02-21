@@ -40,6 +40,14 @@ const addTodo = (todoList, text, completed) => {
   }
 };
 
+const logInUser = (userName) => {
+  const userInput = screen.getByPlaceholderText("Please enter username");
+  const setUserButton = screen.getByText("Set User");
+
+  userEvent.type(userInput, userName);
+  userEvent.click(setUserButton);
+};
+
 test("renders empty todo list when starts", () => {
   // setup
   const todoList = screen.getByTestId("todo-list");
@@ -186,4 +194,31 @@ test("shows outstanding todos when filter is set to Outstanding", () => {
  * ASSERT
  * see previously added todos rendered
  */
-test.todo("renders todo list for existing user");
+test("renders todo list for existing user", () => {
+  // setup
+  logInUser("Attila");
+  const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Take wife for a walk!", true);
+  addTodo(todoList, "Take dog for a walk!");
+
+  // local assertion
+  expect(queryByDisplayValue(todoList, "Take wife for a walk!")).toBeVisible();
+  expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
+
+  // act
+  logInUser("Adrian");
+
+  // local assert
+  expect(
+    queryByDisplayValue(todoList, "Take wife for a walk!")
+  ).not.toBeInTheDocument();
+  expect(
+    queryByDisplayValue(todoList, "Take dog for a walk!")
+  ).not.toBeInTheDocument();
+
+  logInUser("Attila");
+
+  // assert
+  expect(queryByDisplayValue(todoList, "Take wife for a walk!")).toBeVisible();
+  expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
+});
