@@ -143,7 +143,7 @@ export default function createApp(rootElement) {
     });
   };
 
-  const setUserTodos = () => {
+  const restoreUserTodos = () => {
     todoItems = getStoredTodos();
     removeAllTodoElements();
     renderAll(todoItems);
@@ -194,7 +194,7 @@ export default function createApp(rootElement) {
   setUserBtn.addEventListener("click", () => {
     setUser();
     listHeader.innerHTML = `Todo list for ${userName}`;
-    setUserTodos();
+    restoreUserTodos();
     document.querySelector("input.user-input").value = "";
   });
 
