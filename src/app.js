@@ -48,6 +48,7 @@ export default function createApp(rootElement) {
   form.appendChild(inputElement);
 
   const addButton = createButton({ className: "add", text: "Add" });
+  addButton.disabled = true;
   form.appendChild(addButton);
 
   const selectElement = createFilter(["All", "Completed", "Outstanding"]);
@@ -194,6 +195,7 @@ export default function createApp(rootElement) {
   setUserBtn.addEventListener("click", () => {
     setUser();
     listHeader.innerHTML = `Todo list for ${userName}`;
+    addButton.disabled = false;
     restoreUserTodos();
     document.querySelector("input.user-input").value = "";
   });
