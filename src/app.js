@@ -55,7 +55,11 @@ export default function createApp(rootElement) {
 
   rootElement.appendChild(form);
 
-  const listHeader = createHeading("h2", "list-header", "To Do List for");
+  const listHeader = createHeading({
+    size: "h1",
+    className: "list-header",
+    text: "",
+  });
   rootElement.appendChild(listHeader);
 
   const todoList = createTodoList();
