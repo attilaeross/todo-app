@@ -45,6 +45,7 @@ export default function createApp(rootElement) {
     placeholder: "Please enter todo here",
     className: "new-todo",
   });
+  inputElement.disabled = true;
   form.appendChild(inputElement);
 
   const addButton = createButton({ className: "add", text: "Add" });
@@ -196,6 +197,7 @@ export default function createApp(rootElement) {
     setUser();
     listHeader.innerHTML = `Todo list for ${userName}`;
     addButton.disabled = false;
+    inputElement.disabled = false;
     restoreUserTodos();
     document.querySelector("input.user-input").value = "";
   });

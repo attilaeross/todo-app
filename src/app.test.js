@@ -49,15 +49,14 @@ const setUser = (userName = "Attila") => {
   userEvent.click(setUserButton);
 };
 
-test("does not allow to add new todo until user is not set", () => {
+test("does not allow to enter / add new todo until user is not set", () => {
   // act
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
   // assert
-  expect(
-    queryByDisplayValue(todoList, "Take wife for a walk!")
-  ).not.toBeInTheDocument();
+  expect(screen.getByPlaceholderText("Please enter todo here")).toBeDisabled();
+  expect(screen.getByText("Add")).toBeDisabled();
 });
 
 test("renders empty todo list when user logs in", () => {
