@@ -218,16 +218,16 @@ test("renders empty todo list when changing to a new user", () => {
 
 test("renders todo list for existing user", () => {
   // setup
-  logInUser();
+  logInUser("A");
   const todoList = screen.getByTestId("todo-list");
-  addTodo(todoList, "Take wife for a walk!", true);
-  addTodo(todoList, "Take dog for a walk!");
+  addTodo(todoList, "Todo 1 for user A", true);
+  addTodo(todoList, "Todo 2 for user A");
 
   // act
-  logInUser("Marton");
-  logInUser();
+  logInUser("B");
+  logInUser("A");
 
   // assert
-  expect(queryByDisplayValue(todoList, "Take wife for a walk!")).toBeVisible();
-  expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
+  expect(queryByDisplayValue(todoList, "Todo 1 for user A")).toBeVisible();
+  expect(queryByDisplayValue(todoList, "Todo 2 for user A")).toBeVisible();
 });
