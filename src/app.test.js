@@ -60,16 +60,16 @@ test("does not allow to add new todo until user is not set", () => {
   ).not.toBeInTheDocument();
 });
 
-test("renders empty todo list when new user is logs in", () => {
+test("renders empty todo list when user logs in", () => {
   // setup
+  // act
   logInUser();
   const todoList = screen.getByTestId("todo-list");
-  // act
   // assert
   expect(todoList).toBeEmptyDOMElement();
 });
 
-test("shows new item in todo list for logged in user when added", () => {
+test("shows new item in todo list for when added", () => {
   // act
   logInUser();
   const todoList = screen.getByTestId("todo-list");
@@ -81,7 +81,7 @@ test("shows new item in todo list for logged in user when added", () => {
   ).toBeInTheDocument();
 });
 
-test("removes an item from todo List when logged in user clicks Delete button", () => {
+test("removes an item from todo list when user clicks Delete button", () => {
   // setup
   logInUser();
   const todoList = screen.getByTestId("todo-list");
@@ -97,7 +97,7 @@ test("removes an item from todo List when logged in user clicks Delete button", 
   ).not.toBeInTheDocument();
 });
 
-test("marks an item as completed when logged in user clicks Complete button", () => {
+test("marks an item as completed when user clicks Complete button", () => {
   // setup
   logInUser();
   const todoList = screen.getByTestId("todo-list");
@@ -112,7 +112,7 @@ test("marks an item as completed when logged in user clicks Complete button", ()
   expect(textElement).toHaveClass("completed");
 });
 
-test("allows logged in user to edit todo item", () => {
+test("allows user to edit todo item", () => {
   // setup
   logInUser();
   const todoList = screen.getByTestId("todo-list");
@@ -139,7 +139,7 @@ test("allows logged in user to edit todo item", () => {
   ).toBeInTheDocument();
 });
 
-test("shows all todos by default for logged in user", () => {
+test("shows all todos by default for user", () => {
   // setup
   logInUser();
   const todoList = screen.getByTestId("todo-list");
@@ -156,7 +156,7 @@ test("shows all todos by default for logged in user", () => {
   expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
 });
 
-test("shows only completed todos when filter is set to Completed for logged in user", () => {
+test("shows only completed todos when filter is set to Completed", () => {
   // setup
   logInUser();
   const todoList = screen.getByTestId("todo-list");
@@ -180,7 +180,7 @@ test("shows only completed todos when filter is set to Completed for logged in u
   ).not.toBeVisible();
 });
 
-test("shows outstanding todos when filter is set to Outstanding for logged in user", () => {
+test("shows outstanding todos when filter is set to Outstanding", () => {
   // setup
   logInUser();
   const todoList = screen.getByTestId("todo-list");
@@ -202,7 +202,7 @@ test("shows outstanding todos when filter is set to Outstanding for logged in us
   expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
 });
 
-test("renders empty todo list when changing to a nonexistent user", () => {
+test("renders empty todo list when changing to a non pre-existent user", () => {
   // setup
   logInUser();
   const todoList = screen.getByTestId("todo-list");
