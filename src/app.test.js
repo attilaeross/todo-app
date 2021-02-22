@@ -49,7 +49,7 @@ const logInUser = (userName) => {
   userEvent.click(setUserButton);
 };
 
-test("wont allow to add new todo until user is not set", () => {
+test("does not allow to add new todo until user is not set", () => {
   // act
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
