@@ -202,6 +202,20 @@ test("shows outstanding todos when filter is set to Outstanding for logged in us
   expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
 });
 
+test("renders empty todo list when changing to a nonexistent user", () => {
+  // setup
+  logInUser();
+  const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Take wife for a walk!", true);
+  addTodo(todoList, "Take dog for a walk!");
+
+  // act
+  logInUser("Marton");
+
+  // assert
+  expect(todoList).toBeEmptyDOMElement();
+});
+
 test("renders todo list for existing user", () => {
   // setup
   logInUser();
