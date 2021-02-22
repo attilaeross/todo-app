@@ -41,7 +41,7 @@ const addTodo = (todoList, text, completed) => {
   }
 };
 
-const logInUser = (userName) => {
+const logInUser = (userName = "Attila") => {
   const userInput = screen.getByPlaceholderText("Please enter username");
   const setUserButton = screen.getByText("Set User");
 
@@ -62,7 +62,7 @@ test("does not allow to add new todo until user is not set", () => {
 
 test("renders empty todo list when new user is logs in", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   // act
   // assert
@@ -71,7 +71,7 @@ test("renders empty todo list when new user is logs in", () => {
 
 test("shows new item in todo list for logged in user when added", () => {
   // act
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -83,7 +83,7 @@ test("shows new item in todo list for logged in user when added", () => {
 
 test("removes an item from todo List when logged in user clicks Delete button", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -99,7 +99,7 @@ test("removes an item from todo List when logged in user clicks Delete button", 
 
 test("marks an item as completed when logged in user clicks Complete button", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -114,7 +114,7 @@ test("marks an item as completed when logged in user clicks Complete button", ()
 
 test("allows logged in user to edit todo item", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -141,7 +141,7 @@ test("allows logged in user to edit todo item", () => {
 
 test("shows all todos by default for logged in user", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
   const completeButton = getByText(todoList, "Mark");
@@ -158,7 +158,7 @@ test("shows all todos by default for logged in user", () => {
 
 test("shows only completed todos when filter is set to Completed for logged in user", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
   const completeButton = getByText(todoList, "Mark");
@@ -182,7 +182,7 @@ test("shows only completed todos when filter is set to Completed for logged in u
 
 test("shows outstanding todos when filter is set to Outstanding for logged in user", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!", true);
   addTodo(todoList, "Take dog for a walk!");
@@ -204,7 +204,7 @@ test("shows outstanding todos when filter is set to Outstanding for logged in us
 
 test("renders todo list for existing user", () => {
   // setup
-  logInUser("Attila");
+  logInUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!", true);
   addTodo(todoList, "Take dog for a walk!");
@@ -224,7 +224,7 @@ test("renders todo list for existing user", () => {
     queryByDisplayValue(todoList, "Take dog for a walk!")
   ).not.toBeInTheDocument();
 
-  logInUser("Attila");
+  logInUser();
 
   // assert
   expect(queryByDisplayValue(todoList, "Take wife for a walk!")).toBeVisible();
