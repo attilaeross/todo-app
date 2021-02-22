@@ -209,21 +209,8 @@ test("renders todo list for existing user", () => {
   addTodo(todoList, "Take wife for a walk!", true);
   addTodo(todoList, "Take dog for a walk!");
 
-  // local assertion
-  expect(queryByDisplayValue(todoList, "Take wife for a walk!")).toBeVisible();
-  expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
-
   // act
   logInUser("Marton");
-
-  // local assert
-  expect(
-    queryByDisplayValue(todoList, "Take wife for a walk!")
-  ).not.toBeInTheDocument();
-  expect(
-    queryByDisplayValue(todoList, "Take dog for a walk!")
-  ).not.toBeInTheDocument();
-
   logInUser();
 
   // assert
