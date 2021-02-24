@@ -220,6 +220,8 @@ test("renders todo list for existing user", () => {
 
   // act
   setUser("B");
+  expect(todoList).toBeEmptyDOMElement();
+
   setUser("A");
 
   // assert
