@@ -50,10 +50,6 @@ const setUser = (userName = "Attila") => {
 };
 
 test("does not allow to enter / add new todo until user is not set", () => {
-  // act
-  const todoList = screen.getByTestId("todo-list");
-  addTodo(todoList, "Take wife for a walk!");
-
   // assert
   expect(screen.getByPlaceholderText("Please enter todo here")).toBeDisabled();
   expect(screen.getByText("Add")).toBeDisabled();
