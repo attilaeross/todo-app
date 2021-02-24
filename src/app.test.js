@@ -64,7 +64,7 @@ test("renders empty todo list when user logs in", () => {
   expect(todoList).toBeEmptyDOMElement();
 });
 
-test("shows new item in todo list for when added", () => {
+test("shows new item in todo list for user when added", () => {
   // act
   setUser();
   const todoList = screen.getByTestId("todo-list");
