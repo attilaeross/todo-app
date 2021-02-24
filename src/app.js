@@ -17,11 +17,17 @@ import {
 } from "./elements.js";
 
 export default function createApp(rootElement) {
-  const changeUserBtn = createButton({
-    className: "change-user",
-    text: "Change User",
+  const userInput = createInput({
+    placeholder: "Please enter username",
+    className: "user-input",
   });
-  rootElement.appendChild(changeUserBtn);
+  rootElement.appendChild(userInput);
+
+  const setUserBtn = createButton({
+    className: "change-user",
+    text: "Set User",
+  });
+  rootElement.appendChild(setUserBtn);
 
   const heading = createHeading({
     size: "h1",
@@ -35,10 +41,15 @@ export default function createApp(rootElement) {
 
   const form = createForm();
 
-  const inputElement = createInput("Please enter todo here");
+  const inputElement = createInput({
+    placeholder: "Please enter todo here",
+    className: "new-todo",
+  });
+  inputElement.disabled = true;
   form.appendChild(inputElement);
 
   const addButton = createButton({ className: "add", text: "Add" });
+  addButton.disabled = true;
   form.appendChild(addButton);
 
   const selectElement = createFilter(["All", "Completed", "Outstanding"]);
@@ -46,15 +57,18 @@ export default function createApp(rootElement) {
 
   rootElement.appendChild(form);
 
-  const listHeader = createHeading("h2", "list-header", "To Do List for");
+  const listHeader = createHeading({
+    size: "h2",
+    className: "list-header",
+    text: "",
+  });
   rootElement.appendChild(listHeader);
 
   const todoList = createTodoList();
   rootElement.appendChild(todoList);
 
-  // global variables
-  let userName;
   let todoItems = [];
+  let userName;
 
   const storageKey = () => `${userName}Todos`;
 
@@ -131,22 +145,14 @@ export default function createApp(rootElement) {
     });
   };
 
+  const restoreUserTodos = () => {
+    todoItems = getStoredTodos();
+    removeAllTodoElements();
+    renderAll(todoItems);
+  };
+
   const setUser = () => {
-    // eslint-disable-next-line no-alert
-    const input = prompt("Please enter your name...");
-
-    if (!input) {
-      setUser();
-    } else {
-      userName = input.toLowerCase().trim();
-      todoItems = getStoredTodos(userName);
-
-      removeAllTodoElements();
-
-      renderAll(todoItems);
-
-      listHeader.innerHTML = `Todo list for ${input}`;
-    }
+    userName = document.querySelector("input.user-input").value;
   };
 
   addButton.addEventListener("click", (event) => {
@@ -187,9 +193,14 @@ export default function createApp(rootElement) {
     });
   });
 
-  changeUserBtn.addEventListener("click", setUser);
-
-  document.addEventListener("DOMContentLoaded", setUser);
+  setUserBtn.addEventListener("click", () => {
+    setUser();
+    listHeader.innerHTML = `Todo list for ${userName}`;
+    addButton.disabled = false;
+    inputElement.disabled = false;
+    restoreUserTodos();
+    document.querySelector("input.user-input").value = "";
+  });
 
   const destroy = () => {
     document.removeEventListener("DOMContentLoaded", setUser);

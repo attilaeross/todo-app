@@ -17,6 +17,7 @@ const setup = () => {
 const tearDown = () => {
   document.body.innerHTML = "";
   destroyApp();
+  localStorage.clear();
 };
 
 beforeEach(() => {
@@ -40,16 +41,32 @@ const addTodo = (todoList, text, completed) => {
   }
 };
 
-test("renders empty todo list when starts", () => {
+const setUser = (userName = "Attila") => {
+  const userInput = screen.getByPlaceholderText("Please enter username");
+  const setUserButton = screen.getByText("Set User");
+
+  userEvent.type(userInput, userName);
+  userEvent.click(setUserButton);
+};
+
+test("does not allow to enter / add new todo until user is not set", () => {
+  // assert
+  expect(screen.getByPlaceholderText("Please enter todo here")).toBeDisabled();
+  expect(screen.getByText("Add")).toBeDisabled();
+});
+
+test("renders empty todo list when user logs in", () => {
   // setup
-  const todoList = screen.getByTestId("todo-list");
   // act
+  setUser();
+  const todoList = screen.getByTestId("todo-list");
   // assert
   expect(todoList).toBeEmptyDOMElement();
 });
 
-test("shows new item in todo list when added", () => {
+test("shows new item in todo list for user when added", () => {
   // act
+  setUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -59,8 +76,9 @@ test("shows new item in todo list when added", () => {
   ).toBeInTheDocument();
 });
 
-test("removes an item from todo List when user clicks Delete button", () => {
+test("removes an item from todo list when user clicks Delete button", () => {
   // setup
+  setUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -76,6 +94,7 @@ test("removes an item from todo List when user clicks Delete button", () => {
 
 test("marks an item as completed when user clicks Complete button", () => {
   // setup
+  setUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -90,6 +109,7 @@ test("marks an item as completed when user clicks Complete button", () => {
 
 test("allows user to edit todo item", () => {
   // setup
+  setUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
 
@@ -114,14 +134,9 @@ test("allows user to edit todo item", () => {
   ).toBeInTheDocument();
 });
 
-/**
- * - add 2 todos
- * - mark first as completed
- * - check if filter option is all?
- * - check if both todos show in list
- */
-test("shows all todos by default", () => {
+test("shows all todos by default for user", () => {
   // setup
+  setUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
   const completeButton = getByText(todoList, "Mark");
@@ -136,8 +151,9 @@ test("shows all todos by default", () => {
   expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
 });
 
-test("shows completed todos when filter is set to Completed", () => {
+test("shows only completed todos when filter is set to Completed", () => {
   // setup
+  setUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!");
   const completeButton = getByText(todoList, "Mark");
@@ -161,6 +177,7 @@ test("shows completed todos when filter is set to Completed", () => {
 
 test("shows outstanding todos when filter is set to Outstanding", () => {
   // setup
+  setUser();
   const todoList = screen.getByTestId("todo-list");
   addTodo(todoList, "Take wife for a walk!", true);
   addTodo(todoList, "Take dog for a walk!");
@@ -180,16 +197,34 @@ test("shows outstanding todos when filter is set to Outstanding", () => {
   expect(queryByDisplayValue(todoList, "Take dog for a walk!")).toBeVisible();
 });
 
-/**
- * SETUP
- * render todo app
- * input user name
- * add few todos
- * destroy todo app
- * ACT
- * re render todo app
- * input same user name
- * ASSERT
- * see previously added todos rendered
- */
-test.todo("renders todo list for existing user");
+test("renders empty todo list when changing to a new user", () => {
+  // setup
+  setUser();
+  const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Take wife for a walk!", true);
+  addTodo(todoList, "Take dog for a walk!");
+
+  // act
+  setUser("Marton");
+
+  // assert
+  expect(todoList).toBeEmptyDOMElement();
+});
+
+test("renders todo list for existing user", () => {
+  // setup
+  setUser("A");
+  const todoList = screen.getByTestId("todo-list");
+  addTodo(todoList, "Todo 1 for user A", true);
+  addTodo(todoList, "Todo 2 for user A");
+
+  // act
+  setUser("B");
+  expect(todoList).toBeEmptyDOMElement();
+
+  setUser("A");
+
+  // assert
+  expect(queryByDisplayValue(todoList, "Todo 1 for user A")).toBeVisible();
+  expect(queryByDisplayValue(todoList, "Todo 2 for user A")).toBeVisible();
+});
