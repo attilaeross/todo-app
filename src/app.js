@@ -23,6 +23,7 @@ export default function createApp(rootElement) {
   });
   rootElement.appendChild(userInput);
 
+  // TODO: rename setUserBtn --> setUserButton
   const setUserBtn = createButton({
     className: "change-user",
     text: "Set User",
@@ -70,6 +71,8 @@ export default function createApp(rootElement) {
   let todoItems = [];
   let userName;
 
+  // TODO: extract all local storage related functions
+  // TODO: pass in username as parameter
   const storageKey = () => `${userName}Todos`;
 
   const getStoredTodos = () => {
@@ -98,11 +101,13 @@ export default function createApp(rootElement) {
     const textElement = createTextElement(todoItem.text);
     todoEl.appendChild(textElement);
 
+    // TODO: replace .toggle with .add
     if (todoItem.isComplete === true) {
       todoEl.classList.toggle("completed");
       textElement.classList.toggle("completed");
     }
 
+    // TODO: pass in onClick handler rather than textElement and saveTodoItem
     const editButton = createCommandButton(textElement, () => {
       update(todoItem, todoEl);
       persist(todoItems);
@@ -124,6 +129,7 @@ export default function createApp(rootElement) {
     const completeButton = createCompleteButton(onCompleteButtonClick);
     todoEl.appendChild(completeButton);
 
+    // TODO: pass in onClick handler rather than todoEl and removeTodoItem
     const deleteButton = createDeleteButton(todoEl, () => {
       remove(todoItem);
       persist(todoItems);
@@ -152,6 +158,7 @@ export default function createApp(rootElement) {
   };
 
   const setUser = () => {
+    // TODO: move to setUserBtn event listener
     userName = document.querySelector("input.user-input").value;
   };
 
@@ -176,6 +183,7 @@ export default function createApp(rootElement) {
   selectElement.addEventListener("change", (event) => {
     const todos = todoList.childNodes;
     const { value: filter } = event.target;
+    // TODO: destructure style and classList in function argument
     todos.forEach((todo) => {
       const { style } = todo;
       const completed = todo.classList.contains("completed");
@@ -202,6 +210,7 @@ export default function createApp(rootElement) {
     document.querySelector("input.user-input").value = "";
   });
 
+  // TODO: remove destroy
   const destroy = () => {
     document.removeEventListener("DOMContentLoaded", setUser);
   };

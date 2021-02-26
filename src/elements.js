@@ -73,6 +73,7 @@ export const createCompleteButton = (onClick) => {
   return el;
 };
 
+// TODO: extract event listener
 export const createCommandButton = (textEl, saveTodoItem) => {
   const button = createButton({ className: "edit", text: "Edit" });
   button.addEventListener("click", () => {
@@ -93,6 +94,7 @@ export const createCommandButton = (textEl, saveTodoItem) => {
   return button;
 };
 
+// TODO: extract event listener
 export const createDeleteButton = (todoEl, removeTodoItem) => {
   const el = createButton({ className: "delete", text: "Delete" });
   el.addEventListener("click", () => {
