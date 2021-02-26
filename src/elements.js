@@ -43,11 +43,10 @@ export const createFilter = (options) => {
   return select;
 };
 
-// data-testid to be function argument
-export const createTodoList = () => {
+export const createTodoList = (id) => {
   const el = document.createElement("ul");
   el.classList.add("list");
-  el.setAttribute("data-testid", "todo-list");
+  el.setAttribute("data-testid", id);
   return el;
 };
 

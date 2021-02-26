@@ -65,7 +65,7 @@ export default function createApp(rootElement) {
   });
   rootElement.appendChild(listHeader);
 
-  const todoList = createTodoList();
+  const todoList = createTodoList("todo-list");
   rootElement.appendChild(todoList);
 
   let todoItems = [];
