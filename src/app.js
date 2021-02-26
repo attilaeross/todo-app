@@ -23,12 +23,11 @@ export default function createApp(rootElement) {
   });
   rootElement.appendChild(userInput);
 
-  // TODO: rename setUserBtn --> setUserButton
-  const setUserBtn = createButton({
+  const setUserButton = createButton({
     className: "change-user",
     text: "Set User",
   });
-  rootElement.appendChild(setUserBtn);
+  rootElement.appendChild(setUserButton);
 
   const heading = createHeading({
     size: "h1",
@@ -196,7 +195,7 @@ export default function createApp(rootElement) {
     });
   });
 
-  setUserBtn.addEventListener("click", () => {
+  setUserButton.addEventListener("click", () => {
     userName = document.querySelector("input.user-input").value;
     listHeader.innerHTML = `Todo list for ${userName}`;
     addButton.disabled = false;
