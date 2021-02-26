@@ -94,12 +94,8 @@ export const createCommandButton = (textEl, saveTodoItem) => {
   return button;
 };
 
-// TODO: extract event listener
-export const createDeleteButton = (todoEl, removeTodoItem) => {
+export const createDeleteButton = (onClick) => {
   const el = createButton({ className: "delete", text: "Delete" });
-  el.addEventListener("click", () => {
-    removeTodoItem();
-    todoEl.remove();
-  });
+  el.addEventListener("click", onClick);
   return el;
 };

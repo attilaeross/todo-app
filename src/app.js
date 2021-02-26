@@ -129,11 +129,13 @@ export default function createApp(rootElement) {
     const completeButton = createCompleteButton(onCompleteButtonClick);
     todoEl.appendChild(completeButton);
 
-    // TODO: pass in onClick handler rather than todoEl and removeTodoItem
-    const deleteButton = createDeleteButton(todoEl, () => {
+    const onDeleteButtonClick = () => {
       remove(todoItem);
       persist(todoItems);
-    });
+      todoEl.remove();
+    };
+
+    const deleteButton = createDeleteButton(onDeleteButtonClick);
     todoEl.appendChild(deleteButton);
 
     todoList.appendChild(todoEl);
