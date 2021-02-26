@@ -185,10 +185,8 @@ export default function createApp(rootElement) {
   selectElement.addEventListener("change", (event) => {
     const todos = todoList.childNodes;
     const { value: filter } = event.target;
-    // TODO: destructure style and classList in function argument
-    todos.forEach((todo) => {
-      const { style } = todo;
-      const completed = todo.classList.contains("completed");
+    todos.forEach(({ style, classList }) => {
+      const completed = classList.contains("completed");
       switch (filter) {
         case "completed":
           style.display = completed ? "flex" : "none";
