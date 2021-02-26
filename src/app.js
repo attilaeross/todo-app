@@ -159,11 +159,6 @@ export default function createApp(rootElement) {
     renderAll(todoItems);
   };
 
-  const setUser = () => {
-    // TODO: move to setUserBtn event listener
-    userName = document.querySelector("input.user-input").value;
-  };
-
   addButton.addEventListener("click", (event) => {
     event.preventDefault();
 
@@ -202,7 +197,7 @@ export default function createApp(rootElement) {
   });
 
   setUserBtn.addEventListener("click", () => {
-    setUser();
+    userName = document.querySelector("input.user-input").value;
     listHeader.innerHTML = `Todo list for ${userName}`;
     addButton.disabled = false;
     inputElement.disabled = false;
