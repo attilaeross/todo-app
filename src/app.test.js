@@ -7,16 +7,13 @@ import {
 import userEvent from "@testing-library/user-event";
 import createApp from "./app";
 
-let destroyApp;
-
 const setup = () => {
   const root = document.body;
-  destroyApp = createApp(root);
+  createApp(root);
 };
 
 const tearDown = () => {
   document.body.innerHTML = "";
-  destroyApp();
   localStorage.clear();
 };
 

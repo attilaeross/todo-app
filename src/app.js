@@ -209,11 +209,4 @@ export default function createApp(rootElement) {
     restoreUserTodos();
     document.querySelector("input.user-input").value = "";
   });
-
-  // TODO: remove destroy
-  const destroy = () => {
-    document.removeEventListener("DOMContentLoaded", setUser);
-  };
-
-  return destroy;
 }
