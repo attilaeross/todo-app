@@ -100,10 +100,9 @@ export default function createApp(rootElement) {
     const textElement = createTextElement(todoItem.text);
     todoEl.appendChild(textElement);
 
-    // TODO: replace .toggle with .add
     if (todoItem.isComplete === true) {
-      todoEl.classList.toggle("completed");
-      textElement.classList.toggle("completed");
+      todoEl.classList.add("completed");
+      textElement.classList.add("completed");
     }
 
     // TODO: pass in onClick handler rather than textElement and saveTodoItem
