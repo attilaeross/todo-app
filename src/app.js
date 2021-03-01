@@ -23,11 +23,11 @@ export default function createApp(rootElement) {
   });
   rootElement.appendChild(userInput);
 
-  const setUserBtn = createButton({
+  const setUserButton = createButton({
     className: "change-user",
     text: "Set User",
   });
-  rootElement.appendChild(setUserBtn);
+  rootElement.appendChild(setUserButton);
 
   const heading = createHeading({
     size: "h1",
@@ -64,12 +64,14 @@ export default function createApp(rootElement) {
   });
   rootElement.appendChild(listHeader);
 
-  const todoList = createTodoList();
+  const todoList = createTodoList("todo-list");
   rootElement.appendChild(todoList);
 
   let todoItems = [];
   let userName;
 
+  // TODO: extract all local storage related functions
+  // TODO: pass in username as parameter
   const storageKey = () => `${userName}Todos`;
 
   const getStoredTodos = () => {
@@ -99,20 +101,34 @@ export default function createApp(rootElement) {
     todoEl.appendChild(textElement);
 
     if (todoItem.isComplete === true) {
-      todoEl.classList.toggle("completed");
-      textElement.classList.toggle("completed");
+      todoEl.classList.add("completed");
+      textElement.classList.add("completed");
     }
-
-    const editButton = createCommandButton(textElement, () => {
-      update(todoItem, todoEl);
-      persist(todoItems);
-    });
-    todoEl.appendChild(editButton);
 
     const saveTodoItem = () => {
       update(todoItem, todoEl);
       persist(todoItems);
     };
+
+    const onCommandButtonClick = (event) => {
+      const button = event.target;
+      if (button.innerHTML === "Edit") {
+        textElement.disabled = false;
+        textElement.focus();
+        button.innerHTML = "Save";
+        button.classList.remove("edit");
+        button.classList.add("save");
+      } else {
+        textElement.disabled = true;
+        saveTodoItem();
+        button.innerHTML = "Edit";
+        button.classList.remove("save");
+        button.classList.add("edit");
+      }
+    };
+
+    const editButton = createCommandButton(onCommandButtonClick);
+    todoEl.appendChild(editButton);
 
     const onCompleteButtonClick = () => {
       todoEl.classList.toggle("completed");
@@ -124,10 +140,13 @@ export default function createApp(rootElement) {
     const completeButton = createCompleteButton(onCompleteButtonClick);
     todoEl.appendChild(completeButton);
 
-    const deleteButton = createDeleteButton(todoEl, () => {
+    const onDeleteButtonClick = () => {
       remove(todoItem);
       persist(todoItems);
-    });
+      todoEl.remove();
+    };
+
+    const deleteButton = createDeleteButton(onDeleteButtonClick);
     todoEl.appendChild(deleteButton);
 
     todoList.appendChild(todoEl);
@@ -151,10 +170,6 @@ export default function createApp(rootElement) {
     renderAll(todoItems);
   };
 
-  const setUser = () => {
-    userName = document.querySelector("input.user-input").value;
-  };
-
   addButton.addEventListener("click", (event) => {
     event.preventDefault();
 
@@ -176,9 +191,8 @@ export default function createApp(rootElement) {
   selectElement.addEventListener("change", (event) => {
     const todos = todoList.childNodes;
     const { value: filter } = event.target;
-    todos.forEach((todo) => {
-      const { style } = todo;
-      const completed = todo.classList.contains("completed");
+    todos.forEach(({ style, classList }) => {
+      const completed = classList.contains("completed");
       switch (filter) {
         case "completed":
           style.display = completed ? "flex" : "none";
@@ -193,18 +207,12 @@ export default function createApp(rootElement) {
     });
   });
 
-  setUserBtn.addEventListener("click", () => {
-    setUser();
+  setUserButton.addEventListener("click", () => {
+    userName = document.querySelector("input.user-input").value;
     listHeader.innerHTML = `Todo list for ${userName}`;
     addButton.disabled = false;
     inputElement.disabled = false;
     restoreUserTodos();
     document.querySelector("input.user-input").value = "";
   });
-
-  const destroy = () => {
-    document.removeEventListener("DOMContentLoaded", setUser);
-  };
-
-  return destroy;
 }

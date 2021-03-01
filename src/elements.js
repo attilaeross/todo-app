@@ -43,11 +43,10 @@ export const createFilter = (options) => {
   return select;
 };
 
-// data-testid to be function argument
-export const createTodoList = () => {
+export const createTodoList = (id) => {
   const el = document.createElement("ul");
   el.classList.add("list");
-  el.setAttribute("data-testid", "todo-list");
+  el.setAttribute("data-testid", id);
   return el;
 };
 
@@ -73,31 +72,14 @@ export const createCompleteButton = (onClick) => {
   return el;
 };
 
-export const createCommandButton = (textEl, saveTodoItem) => {
+export const createCommandButton = (onClick) => {
   const button = createButton({ className: "edit", text: "Edit" });
-  button.addEventListener("click", () => {
-    if (button.innerHTML === "Edit") {
-      textEl.disabled = false;
-      textEl.focus();
-      button.innerHTML = "Save";
-      button.classList.remove("edit");
-      button.classList.add("save");
-    } else {
-      textEl.disabled = true;
-      saveTodoItem();
-      button.innerHTML = "Edit";
-      button.classList.remove("save");
-      button.classList.add("edit");
-    }
-  });
+  button.addEventListener("click", onClick);
   return button;
 };
 
-export const createDeleteButton = (todoEl, removeTodoItem) => {
+export const createDeleteButton = (onClick) => {
   const el = createButton({ className: "delete", text: "Delete" });
-  el.addEventListener("click", () => {
-    removeTodoItem();
-    todoEl.remove();
-  });
+  el.addEventListener("click", onClick);
   return el;
 };
