@@ -105,17 +105,30 @@ export default function createApp(rootElement) {
       textElement.classList.add("completed");
     }
 
-    // TODO: pass in onClick handler rather than textElement and saveTodoItem
-    const editButton = createCommandButton(textElement, () => {
-      update(todoItem, todoEl);
-      persist(todoItems);
-    });
-    todoEl.appendChild(editButton);
-
     const saveTodoItem = () => {
       update(todoItem, todoEl);
       persist(todoItems);
     };
+
+    const onCommandButtonClick = (event) => {
+      const button = event.target;
+      if (button.innerHTML === "Edit") {
+        textElement.disabled = false;
+        textElement.focus();
+        button.innerHTML = "Save";
+        button.classList.remove("edit");
+        button.classList.add("save");
+      } else {
+        textElement.disabled = true;
+        saveTodoItem();
+        button.innerHTML = "Edit";
+        button.classList.remove("save");
+        button.classList.add("edit");
+      }
+    };
+
+    const editButton = createCommandButton(onCommandButtonClick);
+    todoEl.appendChild(editButton);
 
     const onCompleteButtonClick = () => {
       todoEl.classList.toggle("completed");

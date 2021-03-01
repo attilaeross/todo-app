@@ -72,24 +72,9 @@ export const createCompleteButton = (onClick) => {
   return el;
 };
 
-// TODO: extract event listener
-export const createCommandButton = (textEl, saveTodoItem) => {
+export const createCommandButton = (onClick) => {
   const button = createButton({ className: "edit", text: "Edit" });
-  button.addEventListener("click", () => {
-    if (button.innerHTML === "Edit") {
-      textEl.disabled = false;
-      textEl.focus();
-      button.innerHTML = "Save";
-      button.classList.remove("edit");
-      button.classList.add("save");
-    } else {
-      textEl.disabled = true;
-      saveTodoItem();
-      button.innerHTML = "Edit";
-      button.classList.remove("save");
-      button.classList.add("edit");
-    }
-  });
+  button.addEventListener("click", onClick);
   return button;
 };
 
