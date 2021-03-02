@@ -13,8 +13,7 @@ import {
   createTextElement,
   createTodoElement,
   createTodoList,
-  // eslint-disable-next-line
-} from "./elements.js";
+} from "./elements";
 
 export default function createApp(rootElement) {
   const userInput = createInput({
