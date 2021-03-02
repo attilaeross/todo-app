@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import { storageKey } from "./storage";
 
 import {
   createButton,
@@ -71,17 +72,16 @@ export default function createApp(rootElement) {
 
   // TODO: extract all local storage related functions
   // TODO: pass in username as parameter
-  const storageKey = () => `${userName}Todos`;
 
   const getStoredTodos = () => {
-    if (localStorage.getItem(storageKey()) === null) {
+    if (localStorage.getItem(storageKey(userName)) === null) {
       return [];
     }
-    return JSON.parse(localStorage.getItem(storageKey()));
+    return JSON.parse(localStorage.getItem(storageKey(userName)));
   };
 
   const persist = (todoItem) => {
-    localStorage.setItem(storageKey(), JSON.stringify(todoItem));
+    localStorage.setItem(storageKey(userName), JSON.stringify(todoItem));
   };
 
   const remove = (todoItem) => {
