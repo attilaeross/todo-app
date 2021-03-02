@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { storageKey } from "./storage";
+import { storageKey, getStoredTodos } from "./storage";
 
 import {
   createButton,
@@ -72,13 +72,6 @@ export default function createApp(rootElement) {
 
   // TODO: extract all local storage related functions
   // TODO: pass in username as parameter
-
-  const getStoredTodos = () => {
-    if (localStorage.getItem(storageKey(userName)) === null) {
-      return [];
-    }
-    return JSON.parse(localStorage.getItem(storageKey(userName)));
-  };
 
   const persist = (todoItem) => {
     localStorage.setItem(storageKey(userName), JSON.stringify(todoItem));
@@ -164,7 +157,7 @@ export default function createApp(rootElement) {
   };
 
   const restoreUserTodos = () => {
-    todoItems = getStoredTodos();
+    todoItems = getStoredTodos(userName);
     removeAllTodoElements();
     renderAll(todoItems);
   };
