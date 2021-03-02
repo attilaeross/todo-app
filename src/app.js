@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { storageKey, getStoredTodos } from "./storage";
+import { getStoredTodos, persist } from "./storage";
 
 import {
   createButton,
@@ -73,10 +73,6 @@ export default function createApp(rootElement) {
   // TODO: extract all local storage related functions
   // TODO: pass in username as parameter
 
-  const persist = (todoItem) => {
-    localStorage.setItem(storageKey(userName), JSON.stringify(todoItem));
-  };
-
   const remove = (todoItem) => {
     todoItems = todoItems.filter(({ id }) => todoItem.id !== id);
   };
@@ -99,7 +95,7 @@ export default function createApp(rootElement) {
 
     const saveTodoItem = () => {
       update(todoItem, todoEl);
-      persist(todoItems);
+      persist(todoItems, userName);
     };
 
     const onCommandButtonClick = (event) => {
@@ -134,7 +130,7 @@ export default function createApp(rootElement) {
 
     const onDeleteButtonClick = () => {
       remove(todoItem);
-      persist(todoItems);
+      persist(todoItems, userName);
       todoEl.remove();
     };
 
@@ -174,7 +170,7 @@ export default function createApp(rootElement) {
 
     todoItems.push(todo);
     render(todo);
-    persist(todoItems);
+    persist(todoItems, userName);
 
     // clear todo input value;
     textInput.value = "";
