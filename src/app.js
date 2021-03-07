@@ -70,9 +70,6 @@ export default function createApp(rootElement) {
   let todoItems = [];
   let userName;
 
-  // TODO: extract all local storage related functions
-  // TODO: pass in username as parameter
-
   const remove = (todoItem) => {
     todoItems = todoItems.filter(({ id }) => todoItem.id !== id);
   };
