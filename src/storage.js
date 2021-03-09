@@ -7,6 +7,6 @@ export const getStoredTodos = (userName) => {
   return JSON.parse(localStorage.getItem(storageKey(userName)));
 };
 
-export const persist = (todoItem, userName) => {
-  localStorage.setItem(storageKey(userName), JSON.stringify(todoItem));
+export const persist = (todoItems, userName) => {
+  localStorage.setItem(storageKey(userName), JSON.stringify(todoItems));
 };
