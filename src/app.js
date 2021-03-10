@@ -1,4 +1,6 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-param-reassign */
+import { getStoredTodos, persist } from "./storage.js";
 
 import {
   createButton,
@@ -13,7 +15,6 @@ import {
   createTextElement,
   createTodoElement,
   createTodoList,
-  // eslint-disable-next-line
 } from "./elements.js";
 
 export default function createApp(rootElement) {
@@ -70,21 +71,6 @@ export default function createApp(rootElement) {
   let todoItems = [];
   let userName;
 
-  // TODO: extract all local storage related functions
-  // TODO: pass in username as parameter
-  const storageKey = () => `${userName}Todos`;
-
-  const getStoredTodos = () => {
-    if (localStorage.getItem(storageKey()) === null) {
-      return [];
-    }
-    return JSON.parse(localStorage.getItem(storageKey()));
-  };
-
-  const persist = (todoItem) => {
-    localStorage.setItem(storageKey(), JSON.stringify(todoItem));
-  };
-
   const remove = (todoItem) => {
     todoItems = todoItems.filter(({ id }) => todoItem.id !== id);
   };
@@ -107,7 +93,7 @@ export default function createApp(rootElement) {
 
     const saveTodoItem = () => {
       update(todoItem, todoEl);
-      persist(todoItems);
+      persist(todoItems, userName);
     };
 
     const onCommandButtonClick = (event) => {
@@ -142,7 +128,7 @@ export default function createApp(rootElement) {
 
     const onDeleteButtonClick = () => {
       remove(todoItem);
-      persist(todoItems);
+      persist(todoItems, userName);
       todoEl.remove();
     };
 
@@ -165,7 +151,7 @@ export default function createApp(rootElement) {
   };
 
   const restoreUserTodos = () => {
-    todoItems = getStoredTodos();
+    todoItems = getStoredTodos(userName);
     removeAllTodoElements();
     renderAll(todoItems);
   };
@@ -182,7 +168,7 @@ export default function createApp(rootElement) {
 
     todoItems.push(todo);
     render(todo);
-    persist(todoItems);
+    persist(todoItems, userName);
 
     // clear todo input value;
     textInput.value = "";
