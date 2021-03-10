@@ -1,5 +1,6 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-param-reassign */
-import { getStoredTodos, persist } from "./storage";
+import { getStoredTodos, persist } from "./storage.js";
 
 import {
   createButton,
@@ -14,7 +15,7 @@ import {
   createTextElement,
   createTodoElement,
   createTodoList,
-} from "./elements";
+} from "./elements.js";
 
 export default function createApp(rootElement) {
   const userInput = createInput({
