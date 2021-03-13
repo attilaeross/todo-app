@@ -24,6 +24,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: yarn install --freeze-lockfile
+      - run:
           name: Build
           command: yarn build
       - run:
