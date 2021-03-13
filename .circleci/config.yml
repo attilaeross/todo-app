@@ -40,7 +40,9 @@ workflows:
       - quality-check:
           filters:
             branches:
-              ignore: master
+              ignore:
+                - master
+                - gh-pages
   master:
     jobs:
       - quality-check:
