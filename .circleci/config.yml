@@ -18,9 +18,32 @@ jobs:
       - run:
           name: Unit test
           command: yarn test
+  deploy:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: yarn build
+      - run:
+          name: Deploy to Github pages
+          command: yarn deploy:ci
 
 workflows:
   version: 2.1
-  build:
+  pr:
     jobs:
-      - quality-check
+      - quality-check:
+          filters:
+            branches:
+              ignore: master
+  master:
+    jobs:
+      - quality-check:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - quality-check
