@@ -29,7 +29,7 @@
     "copy-source": "cp -R src dist",
     "remove-tests-from-dist": "find dist -name '*.test.js' -exec rm -rf {} \\;",
     "deploy:from-local": "gh-pages -d dist",
-    "deploy:ci": "gh-pages -d dist -r https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git -u \"Attila Eross <attila.eross@yahoo.co.uk>\"",
+    "deploy:ci": "gh-pages -d dist -r https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git",
     "lint": "eslint src",
     "start": "cd src && python -m SimpleHTTPServer 8000",
     "test": "jest",
