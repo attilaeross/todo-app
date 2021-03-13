@@ -24,6 +24,11 @@
     "prettier": "2.2.1"
   },
   "scripts": {
+    "build": "yarn clean-dist && yarn copy-source && yarn remove-tests-from-dist",
+    "clean-dist": "rm -rf dist",
+    "copy-source": "cp -R src dist",
+    "remove-tests-from-dist": "find dist -name '*.test.js' -exec rm -rf {} \\;",
+    "deploy": "gh-pages -d dist",
     "lint": "eslint src",
     "start": "cd src && python -m SimpleHTTPServer 8000",
     "test": "jest",
