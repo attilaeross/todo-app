@@ -24,6 +24,12 @@
     "prettier": "2.2.1"
   },
   "scripts": {
+    "build": "yarn clean-dist && yarn copy-source && yarn remove-tests-from-dist",
+    "clean-dist": "rm -rf dist",
+    "copy-source": "cp -R src dist",
+    "remove-tests-from-dist": "find dist -name '*.test.js' -exec rm -rf {} \\;",
+    "deploy:from-local": "gh-pages -d dist",
+    "deploy:ci": "gh-pages -d dist -r https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git",
     "lint": "eslint src",
     "start": "cd src && python -m SimpleHTTPServer 8000",
     "test": "jest",
@@ -40,5 +46,8 @@
       "yarn lint",
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
